@@ -1492,47 +1492,6 @@ renderMerit();
 todayText();
 buildYearPicker();
 renderTaisui(currentYear);
-
-/* =========================================================
- * \u4E5D\u3001\u4E71\u7801\u52A0\u5BC6\uFF1A\u8D5B\u535A\u542F\u52A8\u89E3\u5BC6\u6548\u679C
- * ========================================================= */
-var GLITCH_CHARS = "\u798F\u7984\u5BFF\u559C\u8D22\u8FD0\u5EB7\u6CF0\u5B89\u548C\u987A\u5409\u7965\u745E\u6CFD\u6DA6\u5FB7\u5584\u4EC1\u4FE1\u793C\u4E49\u667A\u52C7\u8BDA\u5B5D\u608C\u5FE0\u6055\u8C26\u606D\u52E4\u4FED\u60E0\u654F\u806A\u6167\u660E\u8FBE\u8363\u534E\u5BCC\u8D35\u91D1\u7389\u6EE1\u5802\u53CC\u5168";
-function glitchDecrypt(el, duration, delay){
-  if(!el) return;
-  if(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  if(el.children.length > 0) return; /* \u53EA\u5904\u7406\u7EAF\u6587\u672C\u6807\u9898\uFF0C\u4FDD\u7559\u5E26\u5B50\u6807\u7B7E\u7684\u7ED3\u6784 */
-  setTimeout(function(){
-    var text = el.textContent;
-    var start = null;
-    function frame(t){
-      if(!start) start = t;
-      var p = Math.min(1, (t - start) / duration);
-      var shown = Math.floor(p * text.length);
-      var out = "";
-      for(var i=0;i<text.length;i++){
-        var ch = text[i];
-        if(i < shown || ch === " " || ch === "\u00B7" || ch === "\u3000"){
-          out += ch;
-        } else {
-          out += GLITCH_CHARS[Math.floor(Math.random()*GLITCH_CHARS.length)];
-        }
-      }
-      el.textContent = out;
-      if(p < 1) requestAnimationFrame(frame);
-      else el.textContent = text;
-    }
-    requestAnimationFrame(frame);
-  }, delay || 0);
-}
-
-/* \u4F9D\u6B21\u89E3\u5BC6\uFF1A\u6807\u9898 \u2192 \u526F\u6807\u9898 \u2192 \u7F72\u540D \u2192 \u56DB\u795E\u540D \u2192 \u987B\u77E5\u6807\u9898 */
-glitchDecrypt(document.querySelector(".masthead h1"), 1100, 250);
-glitchDecrypt(document.querySelector(".masthead .subtitle"), 750, 650);
-glitchDecrypt(document.querySelector(".masthead .maker"), 600, 950);
-document.querySelectorAll(".deity-main h3").forEach(function(el, i){
-  glitchDecrypt(el, 550, 1200 + i * 150);
-});
-glitchDecrypt(document.querySelector(".guide-title"), 700, 1800);
 </script>
 </body>
 </html>
