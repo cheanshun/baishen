@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>&#x8D5B;&#x535A;&#x62DC;&#x795E; &#xB7; &#x521D;&#x4E00;&#x5341;&#x4E94;&#x4E91;&#x4E0A;&#x7948;&#x798F;</title>
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<style>
+  :root{
+    --ink:#f0e3c8;
+    --ink-dim:rgba(240,227,200,.66);
+    --ink-faint:rgba(240,227,200,.42);
+    --wood-0:#160b06;
+    --wood-1:#24100a;
+    --wood-2:#33160e;
+    --panel:#3a1a10;
+    --panel-deep:#2a120a;
+    --cinnabar:#b3202a;
+    --cinnabar-deep:#8f1720;
+    --gold:#d8a94e;
+    --gold-bright:#f0c877;
+    --gold-dim:#8a6a2f;
+    --ember:#ff8c42;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(1200px 600px at 50% -100px, rgba(216,169,78,.14), transparent 60%),
+      radial-gradient(900px 500px at 50% 115%, rgba(179,32,42,.18), transparent 60%),
+      linear-gradient(180deg,var(--wood-0) 0%,var(--wood-1) 40%,var(--wood-2) 100%);
+    min-height:100vh;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{font-family:"Noto Serif SC","Songti SC","SimSun",serif}
+  button{font-family:inherit;cursor:pointer}
+  img{display:block;max-width:100%}
+
+  /* ===== &#x9876;&#x90E8;&#x6A2A;&#x5E45; ===== */
+  .masthead{
+    position:relative;
+    text-align:center;
+    padding:52px 20px 30px;
+    overflow:hidden;
+  }
+  .masthead::before{
+    content:"";
+    position:absolute;inset:0;
+    background:
+      radial-gradient(300px 140px at 20% 10%, rgba(240,200,119,.10), transparent 70%),
+      radial-gradient(300px 140px at 80% 10%, rgba(240,200,119,.10), transparent 70%);
+    pointer-events:none;
+  }
+  .lanterns{
+    display:flex;justify-content:center;gap:8vw;margin-bottom:6px;
+  }
+  .lantern{position:relative;width:26px;height:66px}
+  .lantern .cord{position:absolute;top:0;left:50%;transform:translateX(-50%);width:2px;height:14px;background:var(--gold-dim)}
+  .lantern .body{
+    position:absolute;top:14px;left:50%;transform:translateX(-50%);
+    width:26px;height:42px;border-radius:13px 13px 10px 10px;
+    background:linear-gradient(180deg,var(--cinnabar),var(--cinnabar-deep));
+    box-shadow:0 0 18px rgba(179,32,42,.55), inset 0 0 8px rgba(255,200,120,.35);
+    animation:flicker 3.2s ease-in-out infinite;
+  }
+  .lantern .body::before{
+    content:"";position:absolute;top:-5px;left:50%;transform:translateX(-50%);
+    width:16px;height:6px;background:var(--gold);border-radius:3px 3px 0 0;
+  }
+  .lantern .body::after{
+    content:"";position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);
+    width:16px;height:6px;background:var(--gold);border-radius:0 0 3px 3px;
+  }
+  .lantern:nth-child(2){animation-delay:.9s}
+  .lantern:nth-child(3){animation-delay:1.7s}
+  .lantern:nth-child(4){animation-delay:.4s}
+  @keyframes flicker{
+    0%,100%{opacity:1}
+    45%{opacity:.82}
+    60%{opacity:.95}
+  }
+  .masthead h1{
+    font-size:clamp(38px,6vw,64px);
+    font-weight:900;
+    letter-spacing:.14em;
+    color:var(--gold-bright);
+    text-shadow:0 0 30px rgba(240,200,119,.35), 0 2px 0 var(--wood-0);
+  }
+  .masthead .subtitle{
+    margin-top:6px;font-size:15px;letter-spacing:.42em;color:var(--ink-dim);
+    text-indent:.42em;
+  }
+  .masthead .maker{
+    margin-top:8px;font-size:12px;color:var(--gold-dim);
+    letter-spacing:.35em;text-indent:.35em;
+  }
+  .masthead .divider{
+    display:flex;align-items:center;justify-content:center;gap:14px;
+    margin:18px auto 0;max-width:420px;
+  }
+  .masthead .divider::before,.masthead .divider::after{
+    content:"";height:1px;flex:1;
+    background:linear-gradient(90deg,transparent,var(--gold-dim));
+  }
+  .masthead .divider::after{background:linear-gradient(90deg,var(--gold-dim),transparent)}
+  .masthead .divider span{color:var(--gold);font-size:12px;letter-spacing:.2em}
+
+  /* &#x4ECA;&#x65E5;&#x5409;&#x65E5;&#x6761; */
+  .today-strip{
+    max-width:860px;margin:18px auto 0;
+    display:flex;flex-wrap:wrap;gap:10px 18px;justify-content:center;align-items:center;
+    padding:12px 22px;border:1px solid rgba(216,169,78,.32);
+    border-radius:10px;background:rgba(58,26,16,.55);
+    backdrop-filter:blur(4px);
+  }
+  .today-strip .item{font-size:14px;color:var(--ink-dim)}
+  .today-strip .item b{color:var(--ink);font-weight:600}
+  .gold{color:var(--gold-bright)}
+  .lucky-day{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:4px 14px;border-radius:999px;
+    background:linear-gradient(90deg,var(--cinnabar),var(--cinnabar-deep));
+    color:#ffe9c4;font-size:13px;font-weight:500;letter-spacing:.12em;
+    box-shadow:0 0 16px rgba(179,32,42,.5);
+  }
+  .lucky-day:not(.show){display:none}
+
+  /* ===== &#x529F;&#x5FB7;&#x7C3F; ===== */
+  .merit-bar{
+    position:sticky;top:0;z-index:40;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:10px 22px;
+    background:rgba(22,11,6,.88);
+    border-bottom:1px solid rgba(216,169,78,.25);
+    backdrop-filter:blur(6px);
+  }
+  .merit-bar .brand{font-family:"Noto Serif SC",serif;font-weight:700;color:var(--gold-bright);letter-spacing:.18em;font-size:15px}
+  .merit-bar .merit-count{font-size:13px;color:var(--ink-dim)}
+  .merit-bar .merit-count b{color:var(--gold-bright);font-size:16px;font-family:"Noto Serif SC",serif}
+
+  /* ===== &#x795E;&#x9F9B; ===== */
+  .shrine{max-width:1040px;margin:0 auto;padding:34px 20px 10px}
+  .shrine-frame{
+    position:relative;
+    padding:26px 20px 30px;
+    border-radius:18px;
+    background:
+      linear-gradient(180deg, rgba(58,26,16,.9), rgba(42,18,10,.96));
+    border:1px solid rgba(216,169,78,.35);
+    box-shadow:0 24px 60px rgba(0,0,0,.45), inset 0 0 0 4px rgba(216,169,78,.08);
+  }
+  .shrine-frame::before,.shrine-frame::after{
+    content:"";position:absolute;top:-7px;bottom:-7px;width:14px;
+    background:linear-gradient(180deg,var(--gold-dim),var(--gold),var(--gold-dim));
+    border-radius:7px;box-shadow:0 0 12px rgba(216,169,78,.4);
+  }
+  .shrine-frame::before{left:16px}
+  .shrine-frame::after{right:16px}
+  .shrine-title{
+    text-align:center;color:var(--gold-bright);font-size:22px;font-weight:700;
+    letter-spacing:.5em;text-indent:.5em;margin-bottom:4px;
+  }
+  .shrine-title small{
+    display:block;font-size:12px;letter-spacing:.3em;color:var(--ink-faint);
+    font-weight:400;margin-top:4px;text-indent:.3em;
+  }
+  .shrine-rows{display:flex;flex-direction:column;gap:26px;margin-top:22px}
+
+  /* &#x795E;&#x4F4D; */
+  .deity-card{
+    position:relative;
+    border:1px solid rgba(216,169,78,.4);
+    border-radius:14px;
+    background:linear-gradient(180deg,rgba(74,26,16,.85),rgba(44,16,10,.92));
+    box-shadow:0 10px 26px rgba(0,0,0,.35), inset 0 1px 0 rgba(240,200,119,.14);
+    overflow:hidden;
+  }
+  .deity-card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+    opacity:.7;
+    z-index:5;
+  }
+  .deity-card .smoke-layer{
+    position:absolute;inset:0;z-index:30;pointer-events:none;
+  }
+  .deity-inner{
+    display:flex;flex-wrap:wrap;gap:0;padding:20px 20px 14px;
+  }
+  .deity-portrait{
+    flex:0 0 150px;position:relative;z-index:2;
+  }
+  .deity-portrait .frame{
+    position:relative;border-radius:10px;overflow:hidden;
+    border:2px solid var(--gold-dim);
+    box-shadow:0 0 0 3px rgba(216,169,78,.15), 0 8px 22px rgba(0,0,0,.4);
+    background:#1c0d07;
+  }
+  .deity-portrait .frame::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 62%,rgba(22,11,6,.55));
+    pointer-events:none;
+  }
+  .deity-portrait img{width:150px;height:225px;object-fit:cover}
+  .deity-nameplate{
+    position:absolute;left:50%;bottom:8px;transform:translateX(-50%);
+    white-space:nowrap;
+    padding:3px 12px;border-radius:6px;
+    background:rgba(22,11,6,.82);
+    border:1px solid rgba(240,200,119,.4);
+    color:var(--gold-bright);font-family:"Noto Serif SC",serif;
+    font-size:13px;letter-spacing:.16em;text-indent:.16em;
+    z-index:2;
+  }
+  .deity-main{flex:1 1 260px;min-width:240px;padding:2px 0 0 22px;position:relative;z-index:2}
+  .deity-main h3{
+    font-size:24px;font-weight:700;color:var(--gold-bright);letter-spacing:.1em;
+  }
+  .deity-duty{margin-top:2px;font-size:13px;color:var(--ink-dim);letter-spacing:.06em}
+  .deity-pos{
+    margin-top:8px;font-size:12.5px;color:var(--ink-faint);
+    padding-left:12px;border-left:2px solid var(--cinnabar);
+    line-height:1.7;
+  }
+  .deity-pos b{color:var(--gold);font-weight:500}
+
+  /* &#x4F9B;&#x54C1;&#x6E05;&#x5355;&#xFF08;&#x795E;&#x50CF;&#x4E0B;&#x65B9;&#x6A2A;&#x6392;&#x2014;&#x2014;&#x4EC5;&#x8D22;&#x795E;&#x3001;&#x592A;&#x5C81;&#x4F7F;&#x7528;&#xFF09; */
+  .offerings-row{
+    position:relative;z-index:2;
+    margin:4px 20px 0;
+    padding:10px 0 22px;
+    border-top:1px dashed rgba(216,169,78,.22);
+  }
+  /* &#x4F9B;&#x54C1;&#x6E05;&#x5355;&#xFF08;&#x795E;&#x50CF;&#x53F3;&#x4FA7;&#x4FE1;&#x606F;&#x533A;&#x5185;&#x2014;&#x2014;&#x798F;&#x7984;&#x5BFF;&#x3001;&#x571F;&#x5730;&#x795E;&#x4F7F;&#x7528;&#xFF09; */
+  .offerings{margin-top:12px}
+  .offerings-head{
+    display:flex;align-items:center;gap:8px;
+    font-size:13px;color:var(--gold);letter-spacing:.22em;text-indent:.22em;
+  }
+  .offerings-head::before{
+    content:"";width:8px;height:8px;transform:rotate(45deg);
+    background:var(--cinnabar);box-shadow:0 0 8px rgba(179,32,42,.7);
+  }
+  .offering-list{
+    display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin-top:8px;
+  }
+  .offering-list li{
+    display:flex;flex-direction:column;gap:1px;
+    padding:6px 12px;border-radius:8px;
+    background:rgba(22,11,6,.5);
+    border:1px solid rgba(216,169,78,.22);
+    transition:all .35s ease;
+  }
+  .offering-list .name{font-size:13.5px;color:var(--ink)}
+  .offering-list .mean{font-size:11px;color:var(--ink-faint);letter-spacing:.04em}
+  .offering-list li.lit{
+    background:linear-gradient(180deg,rgba(179,32,42,.28),rgba(179,32,42,.12));
+    border-color:rgba(240,200,119,.6);
+    box-shadow:0 0 12px rgba(240,140,66,.25);
+  }
+  .offering-list li.lit .name{color:var(--gold-bright)}
+
+  /* ===== &#x4F9B;&#x684C;&#xFF08;&#x6848;&#x53F0;&#xFF09; ===== */
+  .altar{
+    position:relative;z-index:3;
+    margin:20px 20px 0;
+  }
+  .altar-top{
+    position:relative;height:66px;
+    background:
+      radial-gradient(240px 40px at 50% 0%, rgba(240,200,119,.14), transparent 70%),
+      linear-gradient(180deg,#7a4a1e 0%,#5a3312 55%,#46230c 100%);
+    border:1px solid rgba(216,169,78,.55);
+    border-radius:6px 6px 4px 4px;
+    box-shadow:0 10px 22px rgba(0,0,0,.4), inset 0 2px 0 rgba(255,220,150,.18);
+  }
+  .altar-top::before{ /* &#x684C;&#x56F4;&#x7EA2;&#x5E03; */
+    content:"";position:absolute;left:0;right:0;top:0;height:12px;
+    background:linear-gradient(180deg,var(--cinnabar),var(--cinnabar-deep));
+    opacity:.9;
+  }
+  .altar-top::after{ /* &#x684C;&#x6CBF;&#x91D1;&#x7EBF; */
+    content:"";position:absolute;left:0;right:0;top:12px;height:1px;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  }
+  .altar-legs{
+    display:flex;justify-content:space-between;padding:0 10px;position:relative;z-index:1;
+  }
+  .altar-legs .leg{
+    width:14px;height:24px;
+    background:linear-gradient(90deg,#3a1e0c,#5a3312 55%,#2f1506);
+    border-radius:0 0 4px 4px;
+  }
+  .altar-legs .apron{ /* &#x684C;&#x88D9; */
+    position:absolute;left:24px;right:24px;top:0;height:16px;
+    background:
+      repeating-linear-gradient(45deg, rgba(216,169,78,.12) 0 6px, transparent 6px 12px),
+      linear-gradient(180deg,var(--cinnabar),var(--cinnabar-deep));
+    opacity:.85;
+  }
+  /* &#x56E2;&#x84B2;&#xFF08;&#x62DC;&#x57AB;&#xFF09;&#xFF1A;&#x4F4D;&#x4E8E;&#x4F9B;&#x684C;&#x6B63;&#x4E0B;&#x65B9;&#xFF0C;&#x4E0E;&#x5934;&#x9053;&#x9999;&#x3001;&#x4F9B;&#x54C1;&#x540C;&#x4E00;&#x4E2D;&#x8F74; */
+  .prayer-mat{
+    position:relative;width:134px;height:44px;margin:6px auto -10px;
+    border-radius:50%;
+    background:
+      radial-gradient(ellipse at 50% 40%, #e8bf9f 0%, #d93a45 38%, #8f1720 100%);
+    border:2.5px solid var(--gold);
+    box-shadow:0 8px 16px rgba(0,0,0,.5), inset 0 2px 4px rgba(255,230,190,.45), inset 0 -5px 10px rgba(60,10,8,.5);
+    cursor:pointer;z-index:2;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .prayer-mat::before{
+    content:"";position:absolute;inset:7px;border-radius:50%;
+    border:1.5px dashed rgba(240,200,119,.55);
+  }
+  .prayer-mat::after{
+    content:"";position:absolute;inset:15px;border-radius:50%;
+    background:radial-gradient(ellipse, rgba(255,240,210,.22), transparent 72%);
+    border:1px solid rgba(240,200,119,.4);
+  }
+  .prayer-mat:hover{transform:translateY(-1px);box-shadow:0 10px 20px rgba(0,0,0,.55)}
+  .prayer-mat.pressed{transform:translateY(3px) scaleY(.9)}
+  .prayer-mat:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px}
+  /* &#x8721;&#x70DB; */
+  .candle{
+    position:absolute;bottom:10px;width:11px;height:30px;
+    background:linear-gradient(90deg,#8f1720,#d93a45 45%,#a01c26);
+    border-radius:3px;
+    box-shadow:0 2px 6px rgba(0,0,0,.4), inset 0 -3px 5px rgba(0,0,0,.3);
+    z-index:1;
+  }
+  .candle::before{
+    content:"";position:absolute;top:-2px;left:50%;transform:translateX(-50%);
+    width:3px;height:3px;border-radius:50%;background:#3a2a14;
+  }
+  .candle .flame{
+    position:absolute;top:-16px;left:50%;transform:translateX(-50%);
+    width:9px;height:14px;
+    background:radial-gradient(circle at 50% 75%, #fff3d6 0%, var(--ember) 55%, rgba(255,140,66,0) 78%);
+    border-radius:50% 50% 46% 46%;
+    animation:flameFlick 1.6s ease-in-out infinite;
+    transform-origin:50% 100%;
+  }
+  .candle .flame::after{
+    content:"";position:absolute;left:50%;top:90%;transform:translateX(-50%);
+    width:22px;height:12px;border-radius:50%;
+    background:radial-gradient(circle, rgba(255,180,90,.4), transparent 70%);
+  }
+  .candle.c-l{left:18%}
+  .candle.c-r{right:18%}
+  .candle.c-r .flame{animation-delay:.5s}
+  @keyframes flameFlick{
+    0%,100%{transform:translateX(-50%) scale(1) rotate(-2deg)}
+    30%{transform:translateX(-50%) scale(1.12,1.06) rotate(2deg)}
+    55%{transform:translateX(-50%) scale(.94,1.02) rotate(-1deg)}
+    80%{transform:translateX(-50%) scale(1.06,1.08) rotate(1.5deg)}
+  }
+  /* &#x9999;&#x7089;&#xFF1A;&#x4E09;&#x8DB3;&#x53CC;&#x8033;&#x94DC;&#x7089;&#xFF08;&#x653E;&#x4F9B;&#x684C;&#x4E0A;&#xFF09; */
+  .burner{
+    position:absolute;left:50%;bottom:6px;transform:translateX(-50%);
+    width:140px;height:118px;z-index:1;
+  }
+  .burner-body{
+    position:absolute;left:50%;bottom:16px;transform:translateX(-50%);
+    width:98px;height:46px;
+    background:
+      radial-gradient(120px 60px at 50% 0%, rgba(255,220,150,.14), transparent 60%),
+      linear-gradient(180deg,#b07a3a 0%,#8a5a28 45%,#5a3312 100%);
+    border-radius:48px 48px 18px 18px;
+    border:1px solid rgba(240,200,119,.5);
+    box-shadow:0 8px 16px rgba(0,0,0,.5), inset 0 3px 7px rgba(255,220,150,.22), inset 0 -4px 8px rgba(40,20,6,.5);
+  }
+  .burner-rim{
+    position:absolute;top:-7px;left:50%;transform:translateX(-50%);
+    width:116px;height:13px;border-radius:9px;
+    background:linear-gradient(180deg,#e8c877 0%,#b08a3a 55%,#7a5820 100%);
+    border:1px solid rgba(255,225,160,.65);
+    box-shadow:0 2px 5px rgba(0,0,0,.4);
+  }
+  .burner-rim::after{ /* &#x7089;&#x53E3;&#x5185;&#x6CBF;&#xFF08;&#x9999;&#x7070;&#x69FD;&#xFF09; */
+    content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:88px;height:7px;border-radius:5px;
+    background:#3a2f24;
+    box-shadow:inset 0 1px 3px rgba(0,0,0,.8);
+  }
+  .burner-ear{
+    position:absolute;top:30px;width:18px;height:23px;
+    background:linear-gradient(180deg,#d8a94e,#8a5a28);
+    border:1px solid rgba(255,225,160,.4);
+    border-radius:6px 6px 10px 10px;
+    box-shadow:0 3px 6px rgba(0,0,0,.35);
+  }
+  .burner-ear::after{ /* &#x8033;&#x5B54; */
+    content:"";position:absolute;left:50%;top:6px;transform:translateX(-50%);
+    width:7px;height:10px;border-radius:4px;
+    background:rgba(40,20,6,.75);
+  }
+  .burner-ear.l{left:16px}
+  .burner-ear.r{right:16px}
+  .burner-leg{
+    position:absolute;bottom:0;width:13px;height:18px;
+    background:linear-gradient(90deg,#4a2a10,#8a5a28 55%,#4a2a10);
+    border-radius:0 0 5px 5px;
+    box-shadow:0 2px 4px rgba(0,0,0,.45);
+  }
+  .burner-leg.l{left:30px}
+  .burner-leg.r{right:30px}
+  .burner-leg.c{left:50%;transform:translateX(-50%)}
+  .burner .ash{
+    position:absolute;left:50%;bottom:64px;transform:translateX(-50%);
+    width:84px;height:8px;border-radius:4px;
+    background:linear-gradient(180deg,#4a4238,#2e2924);
+    box-shadow:0 1px 3px rgba(0,0,0,.6);
+    z-index:1;
+  }
+  .sticks-layer{
+    position:absolute;bottom:68px;left:0;right:0;height:44px;pointer-events:none;z-index:2;
+  }
+  .stick{
+    position:absolute;bottom:0;
+    width:3px;height:56px;border-radius:2px;
+    background:linear-gradient(180deg,#e0a860,#b07a3a 72%,#8a5a28);
+    opacity:0;
+    animation:stickIn .55s ease forwards;
+    box-shadow:0 1px 0 rgba(0,0,0,.4);
+  }
+  .stick .ember{
+    position:absolute;top:-4px;left:50%;transform:translateX(-50%);
+    width:8px;height:8px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, #ffd9a0, var(--ember) 55%, rgba(255,140,66,.1));
+    box-shadow:0 0 10px 3px rgba(255,140,66,.65);
+  }
+  @keyframes stickIn{
+    0%{opacity:0;transform:translateY(14px) scaleY(.3);filter:blur(1px)}
+    100%{opacity:1;transform:translateY(0) scaleY(1);filter:blur(0)}
+  }
+  /* &#x4F9B;&#x54C1;&#x6446;&#x76D8;&#xFF08;&#x732E;&#x4F9B;&#x540E;&#x51FA;&#x73B0;&#x5728;&#x684C;&#x9762;&#x4E0A;&#xFF09; */
+  .altar-items{
+    position:absolute;left:0;right:0;bottom:2px;
+    display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;
+    gap:5px;z-index:4;padding:0 8px;
+  }
+  .offering-obj{
+    width:40px;height:40px;opacity:0;
+    transform:translateY(34px) scale(.55);
+    filter:drop-shadow(0 3px 3px rgba(0,0,0,.5));
+  }
+  .offering-obj.in{animation:placeIn .6s cubic-bezier(.22,1.4,.32,1) forwards}
+  @keyframes placeIn{
+    0%{opacity:0;transform:translateY(34px) scale(.55)}
+    70%{opacity:1;transform:translateY(-3px) scale(1.06)}
+    100%{opacity:1;transform:translateY(0) scale(1)}
+  }
+
+  /* &#x4E92;&#x52A8;&#x533A; */
+  .ritual-actions{
+    position:relative;z-index:6;
+    display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+    padding:14px 20px 8px;
+    border-top:1px dashed rgba(216,169,78,.25);
+    margin-top:8px;
+  }
+  .btn{
+    position:relative;
+    display:inline-flex;align-items:center;justify-content:center;gap:7px;
+    padding:9px 20px;border-radius:9px;border:none;
+    font-size:14px;font-weight:500;letter-spacing:.1em;
+    transition:transform .15s ease, box-shadow .2s ease, filter .2s ease;
+  }
+  .btn:active{transform:translateY(1px) scale(.98)}
+  .btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px}
+  .btn-incense{
+    background:linear-gradient(180deg,var(--cinnabar),var(--cinnabar-deep));
+    color:#ffe9c4;
+    box-shadow:0 4px 14px rgba(179,32,42,.4);
+  }
+  .btn-incense:hover{filter:brightness(1.12);box-shadow:0 6px 18px rgba(179,32,42,.55)}
+  .btn-kowtow{
+    background:transparent;color:var(--gold-bright);
+    border:1px solid rgba(240,200,119,.5);
+  }
+  .btn-kowtow:hover{background:rgba(240,200,119,.1)}
+  .btn-offer{
+    background:transparent;color:var(--ink-dim);
+    border:1px solid rgba(240,227,200,.25);
+    font-size:13px;padding:8px 16px;
+  }
+  .btn-offer:hover{color:var(--gold-bright);border-color:rgba(240,200,119,.5)}
+  .deity-merit{
+    margin-left:auto;font-size:12.5px;color:var(--ink-faint);
+  }
+  .deity-merit b{color:var(--gold-bright);font-family:"Noto Serif SC",serif;font-size:15px}
+  .kowtow-msg{
+    display:none;
+    width:100%;margin-top:8px;padding:9px 14px;border-radius:8px;
+    background:rgba(240,200,119,.08);
+    border:1px solid rgba(240,200,119,.3);
+    color:var(--gold-bright);font-size:13px;letter-spacing:.08em;text-align:center;
+  }
+  .kowtow-msg.show{display:block;animation:fadeUp .5s ease}
+
+  /* &#x8885;&#x8885;&#x9999;&#x70DF; */
+  .smoke-puff{
+    position:absolute;width:15px;height:15px;border-radius:50%;
+    background:radial-gradient(circle, rgba(235,228,214,.58), rgba(235,228,214,0) 70%);
+    opacity:0;pointer-events:none;
+    animation:rise 3.6s ease-out forwards;
+  }
+  @keyframes rise{
+    0%{opacity:0;transform:translate(0,0) scale(.5)}
+    10%{opacity:.6}
+    60%{opacity:.3}
+    100%{opacity:0;transform:translate(var(--dx,6px),-125px) scale(2.8)}
+  }
+
+  /* &#x53E9;&#x62DC;&#x663E;&#x7075;&#xFF1A;&#x795E;&#x50CF;&#x4E0D;&#x6643;&#x52A8;&#xFF0C;&#x6539;&#x4E3A;&#x795E;&#x5149; + &#x4F9B;&#x684C;&#x8F7B;&#x9707; + &#x70DB;&#x706B;&#x95EA;&#x4EAE; */
+  .deity-portrait.blessed .frame{
+    animation:bless 1s ease;
+  }
+  @keyframes bless{
+    0%{box-shadow:0 0 0 3px rgba(216,169,78,.15), 0 8px 22px rgba(0,0,0,.4)}
+    40%{box-shadow:0 0 0 5px rgba(240,200,119,.55), 0 0 42px rgba(240,200,119,.95)}
+    100%{box-shadow:0 0 0 3px rgba(216,169,78,.15), 0 8px 22px rgba(0,0,0,.4)}
+  }
+  .altar.shake{animation:altarShake .5s ease}
+  @keyframes altarShake{
+    0%,100%{transform:translateY(0)}
+    25%{transform:translateY(1px)}
+    50%{transform:translateY(-1.5px)}
+    75%{transform:translateY(1px)}
+  }
+  .candle .flame.bright{animation:flameBright .9s ease}
+  @keyframes flameBright{
+    0%,100%{transform:translateX(-50%) scale(1)}
+    35%{transform:translateX(-50%) scale(1.55)}
+    70%{transform:translateX(-50%) scale(1.15)}
+  }
+
+  /* &#x795E;&#x4F4D;&#x5C42;&#x7EA7;&#x8BF4;&#x660E; */
+  .hierarchy-note{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;
+    margin-top:22px;
+  }
+  .hierarchy-note .slot{
+    padding:10px 14px;border-radius:10px;
+    background:rgba(22,11,6,.55);
+    border:1px solid rgba(216,169,78,.2);
+    font-size:12px;color:var(--ink-dim);text-align:center;line-height:1.7;
+  }
+  .hierarchy-note .slot b{color:var(--gold-bright);font-weight:600;display:block;font-size:13px}
+  .hierarchy-note .slot .tag{display:inline-block;margin-top:3px;padding:1px 8px;border-radius:99px;background:rgba(179,32,42,.3);color:#ffd9a0;font-size:11px}
+
+  /* ===== &#x592A;&#x5C81;&#x7279;&#x5C55; ===== */
+  .taisui-panel{
+    max-width:1040px;margin:34px auto 0;padding:0 20px;
+  }
+  .panel-card{
+    position:relative;padding:28px 24px;
+    border-radius:16px;
+    background:linear-gradient(180deg,rgba(58,26,16,.92),rgba(42,18,10,.96));
+    border:1px solid rgba(216,169,78,.35);
+    box-shadow:0 18px 44px rgba(0,0,0,.4);
+    overflow:hidden;
+  }
+  .panel-card::before{
+    content:"";position:absolute;top:-70px;right:-70px;width:200px;height:200px;
+    background:radial-gradient(circle, rgba(240,200,119,.12), transparent 70%);
+  }
+  .panel-title{
+    font-size:20px;font-weight:700;color:var(--gold-bright);
+    letter-spacing:.3em;text-indent:.3em;text-align:center;
+  }
+  .panel-title small{display:block;font-size:12px;letter-spacing:.2em;color:var(--ink-faint);font-weight:400;margin-top:4px;text-indent:.2em}
+  .taisui-current{
+    display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:center;
+    margin-top:20px;
+  }
+  .taisui-portrait{flex:0 0 92px}
+  .taisui-portrait img{width:92px;height:138px;object-fit:cover;border-radius:8px;border:2px solid var(--gold-dim);box-shadow:0 6px 16px rgba(0,0,0,.4)}
+  .taisui-name{text-align:center}
+  .taisui-name .ganzhi{
+    font-size:15px;color:var(--ink-dim);letter-spacing:.18em;
+  }
+  .taisui-name .jiangjun{
+    font-size:30px;font-weight:900;color:var(--gold-bright);
+    font-family:"Noto Serif SC",serif;letter-spacing:.14em;margin-top:2px;
+    text-shadow:0 0 22px rgba(240,200,119,.35);
+  }
+  .taisui-name .desc{font-size:12px;color:var(--ink-faint);margin-top:4px}
+  .year-picker{
+    display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+    margin-top:18px;
+  }
+  .year-picker button{
+    padding:6px 14px;border-radius:8px;border:1px solid rgba(216,169,78,.3);
+    background:rgba(22,11,6,.5);color:var(--ink-dim);
+    font-size:13px;letter-spacing:.06em;
+    transition:all .2s ease;
+  }
+  .year-picker button:hover{color:var(--gold-bright);border-color:rgba(240,200,119,.55)}
+  .year-picker button.on{
+    background:linear-gradient(180deg,var(--cinnabar),var(--cinnabar-deep));
+    color:#ffe9c4;border-color:transparent;
+    box-shadow:0 4px 14px rgba(179,32,42,.45);
+  }
+  .fan-taisui{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;
+    margin-top:20px;
+  }
+  .fan-item{
+    padding:14px 16px;border-radius:12px;
+    background:rgba(22,11,6,.55);
+    border:1px solid rgba(216,169,78,.22);
+  }
+  .fan-item .kind{
+    font-size:12px;color:var(--gold);letter-spacing:.2em;text-indent:.2em;
+  }
+  .fan-item .zodiac{
+    font-family:"Noto Serif SC",serif;font-size:22px;font-weight:700;color:var(--ink);
+    margin-top:4px;
+  }
+  .fan-item .zodiac b{color:var(--gold-bright)}
+  .fan-item .tip{font-size:11.5px;color:var(--ink-faint);margin-top:6px;line-height:1.7}
+  .fan-item.hot{border-color:rgba(240,140,66,.5);background:linear-gradient(180deg,rgba(179,32,42,.18),rgba(22,11,6,.6))}
+  .fan-item.hot .zodiac b{color:var(--ember)}
+  .taisui-tip{
+    margin-top:18px;padding:13px 16px;border-radius:10px;
+    background:rgba(240,200,119,.06);
+    border:1px dashed rgba(240,200,119,.35);
+    font-size:13px;color:var(--ink-dim);line-height:1.9;
+  }
+  .taisui-tip b{color:var(--gold-bright);font-weight:600}
+
+  /* ===== &#x62DC;&#x795E;&#x987B;&#x77E5; ===== */
+  .ritual-guide{
+    max-width:1040px;margin:34px auto 0;padding:0 20px;
+  }
+  .guide-card{
+    padding:26px 24px;border-radius:16px;
+    background:linear-gradient(180deg,rgba(58,26,16,.9),rgba(42,18,10,.95));
+    border:1px solid rgba(216,169,78,.3);
+  }
+  .guide-title{
+    font-size:18px;font-weight:700;color:var(--gold-bright);
+    letter-spacing:.3em;text-indent:.3em;text-align:center;margin-bottom:16px;
+  }
+  .guide-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .guide-item{padding:12px 14px;border-radius:10px;background:rgba(22,11,6,.5);border:1px solid rgba(216,169,78,.18)}
+  .guide-item h4{font-size:14px;color:var(--gold);letter-spacing:.1em;margin-bottom:5px}
+  .guide-item p{font-size:12.5px;color:var(--ink-dim);line-height:1.8}
+
+  footer{
+    text-align:center;padding:34px 20px 44px;color:var(--ink-faint);font-size:12.5px;line-height:2;
+  }
+  footer .foot-seal{
+    display:inline-block;width:52px;height:52px;margin-bottom:10px;
+    border:2px solid var(--cinnabar);border-radius:50%;
+    color:var(--cinnabar);font-family:"Noto Serif SC",serif;
+    font-size:20px;line-height:48px;letter-spacing:.2em;text-indent:.2em;
+    box-shadow:0 0 0 3px rgba(179,32,42,.18);
+  }
+  footer .copyright{
+    margin-top:2px;color:var(--gold-dim);letter-spacing:.08em;
+  }
+  footer .disclaimer{color:var(--ink-faint);opacity:.75;font-size:11.5px}
+
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(8px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  .fade-in{animation:fadeUp .6s ease both}
+
+  @media (max-width:640px){
+    .deity-inner{padding:16px 14px 12px}
+    .deity-portrait{flex-basis:110px}
+    .deity-portrait img{width:110px;height:165px}
+    .deity-main{padding-left:16px;min-width:0}
+    .deity-main h3{font-size:20px}
+    .altar{margin:18px 14px 0}
+    .offerings-row{margin:4px 14px 0;padding-bottom:20px}
+    .candle.c-l{left:12%}
+    .candle.c-r{right:12%}
+    .burner{width:122px}
+    .burner-body{width:86px}
+    .burner-rim{width:102px}
+    .burner .ash{width:74px}
+    .burner-ear.l{left:14px}
+    .burner-ear.r{right:14px}
+    .burner-leg.l{left:26px}
+    .burner-leg.r{right:26px}
+    .ritual-actions{padding:12px 14px 6px}
+    .merit-bar{padding:8px 14px}
+    .shrine-frame{padding:20px 12px 22px}
+    .shrine-frame::before,.shrine-frame::after{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== &#x529F;&#x5FB7;&#x7C3F;&#xFF08;&#x5438;&#x9876;&#xFF09; ===== -->
+<div class="merit-bar">
+  <div class="brand">&#x8D5B;&#x535A;&#x62DC;&#x795E;</div>
+  <div class="merit-count">&#x529F;&#x5FB7;&#x7C3F; &#xB7; &#x5DF2;&#x79EF; <b id="totalMerit">0</b> &#x529F;&#x5FB7;</div>
+</div>
+
+<!-- ===== &#x9876;&#x90E8;&#x6A2A;&#x5E45; ===== -->
+<header class="masthead">
+  <div class="lanterns" aria-hidden="true">
+    <div class="lantern"><div class="cord"></div><div class="body"></div></div>
+    <div class="lantern"><div class="cord"></div><div class="body"></div></div>
+    <div class="lantern"><div class="cord"></div><div class="body"></div></div>
+    <div class="lantern"><div class="cord"></div><div class="body"></div></div>
+  </div>
+  <h1>&#x8D5B;&#x535A;&#x62DC;&#x795E;</h1>
+  <p class="subtitle">&#x521D;&#x4E00;&#x5341;&#x4E94; &#xB7; &#x4E91;&#x4E0A;&#x7948;&#x798F;</p>
+  <p class="maker">&#x5236;&#x4F5C;&#x8005;&#xFF1A;&#x8F66;&#x5764;&#x5FB7;</p>
+  <div class="divider"><span>&#x5FC3; &#x8BDA; &#x5219; &#x7075;</span></div>
+  <div class="today-strip">
+    <span class="item">&#x516C;&#x5386; <b id="solarText">--</b></span>
+    <span class="item">&#x519C;&#x5386; <b id="lunarText" class="gold">--</b></span>
+    <span class="item">&#x751F;&#x8096; <b id="zodiacText" class="gold">--</b></span>
+    <span class="item">&#x503C;&#x5E74;&#x592A;&#x5C81; <b id="todayTaisui" class="gold">--</b></span>
+    <span class="lucky-day" id="luckyDay">&#x4ECA;&#x65E5;&#x6714;&#x671B;&#x5409;&#x65E5; &#xB7; &#x5B9C;&#x796D;&#x62DC;</span>
+  </div>
+</header>
+
+<!-- ===== &#x795E;&#x9F9B;&#x4E3B;&#x4F53; ===== -->
+<section class="shrine">
+  <div class="shrine-frame">
+    <h2 class="shrine-title">&#x5BB6;&#x4E2D;&#x795E;&#x9F9B;
+      <small>&#x4F4D;&#x6B21;&#x4F9D;&#x300C;&#x4E0A;&#x5C0A;&#x4E0B;&#x5351;&#x3001;&#x5DE6;&#x8D35;&#x53F3;&#x5B89;&#x300D;&#x4E4B;&#x7406;&#x6392;&#x5E03; &#xB7; &#x9762;&#x671D;&#x5927;&#x95E8;</small>
+    </h2>
+    <div class="shrine-rows">
+
+      <!-- &#x4E0A;&#x5C42;&#xFF1A;&#x798F;&#x7984;&#x5BFF;&#x4E09;&#x661F;&#xFF08;&#x6B63;&#x5802;&#x4E3B;&#x4F4D;&#xFF0C;&#x6700;&#x9AD8;&#xFF09; -->
+      <div class="deity-card" id="card-fulushou">
+        <div class="smoke-layer"></div>
+        <div class="deity-inner">
+          <div class="deity-portrait" id="portrait-fulushou">
+            <div class="frame">
+              <img src="https://aka.doubaocdn.com/s/HFGNdBF3YH" alt="&#x798F;&#x7984;&#x5BFF;&#x4E09;&#x661F;&#x795E;&#x50CF;">
+              <div class="deity-nameplate">&#x798F;&#x7984;&#x5BFF;&#x4E09;&#x661F;</div>
+            </div>
+          </div>
+          <div class="deity-main">
+            <h3>&#x798F;&#x7984;&#x5BFF;&#x4E09;&#x661F;</h3>
+            <p class="deity-duty">&#x53F8;&#x804C;&#xFF1A;&#x798F;&#x6C14; &#xB7; &#x7984;&#x4F4D; &#xB7; &#x957F;&#x5BFF;</p>
+            <p class="deity-pos">&#x795E;&#x4F4D;&#xFF1A;<b>&#x4E0A;&#x9F9B;&#x6B63;&#x5802;&#x4E3B;&#x4F4D;</b>&#x3002;&#x4E09;&#x661F;&#x662F;&#x5BB6;&#x4E2D;&#x6700;&#x9AD8;&#x4F4D;&#x7684;&#x5409;&#x795E;&#xFF0C;&#x5B89;&#x5949;&#x4E8E;&#x795E;&#x9F9B;&#x9876;&#x5C42;&#x4E2D;&#x592E;&#xFF0C;&#x5C45;&#x9AD8;&#x4E34;&#x4E0B;&#x3001;&#x9762;&#x671D;&#x5927;&#x95E8;&#xFF0C;&#x5BD3;&#x610F;&#x798F;&#x6C14;&#x3001;&#x8D22;&#x7984;&#x3001;&#x5EB7;&#x5BFF;&#x81EA;&#x95E8;&#x800C;&#x5165;&#xFF0C;&#x5E87;&#x836B;&#x5168;&#x5BB6;&#x3002;</p>
+            <div class="offerings">
+              <div class="offerings-head">&#x4F9B;&#x54C1;&#xFF08;&#x5DF2;&#x5907;&#x9F50;&#xFF09;</div>
+              <ul class="offering-list" id="offerings-fulushou">
+                <li data-icon="tao"><span class="name">&#x5BFF;&#x6843;</span><span class="mean">&#x957F;&#x5BFF;&#x5B89;&#x5EB7;</span></li>
+                <li data-icon="mian"><span class="name">&#x5BFF;&#x9762;</span><span class="mean">&#x798F;&#x5BFF;&#x7EF5;&#x957F;</span></li>
+                <li data-icon="orange"><span class="name">&#x798F;&#x6A58;</span><span class="mean">&#x798F;&#x6C14;&#x76C8;&#x95E8;</span></li>
+                <li data-icon="gao"><span class="name">&#x7CD5;&#x70B9;</span><span class="mean">&#x6B65;&#x6B65;&#x9AD8;&#x5347;</span></li>
+                <li data-icon="tang"><span class="name">&#x7CD6;&#x679C;</span><span class="mean">&#x751F;&#x6D3B;&#x751C;&#x7F8E;</span></li>
+                <li data-icon="tea"><span class="name">&#x4E09;&#x676F;&#x6E05;&#x8336;</span><span class="mean">&#x656C;&#x795E;&#x5FC5;&#x5907;</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="altar">
+          <div class="altar-top">
+            <div class="candle c-l"><span class="flame"></span></div>
+            <div class="candle c-r"><span class="flame"></span></div>
+            <div class="burner">
+              <div class="burner-ear l"></div>
+              <div class="burner-ear r"></div>
+              <div class="burner-body"><div class="burner-rim"></div></div>
+              <div class="burner-leg l"></div>
+              <div class="burner-leg c"></div>
+              <div class="burner-leg r"></div>
+              <div class="sticks-layer"></div>
+              <div class="ash"></div>
+            </div>
+            <div class="altar-items"></div>
+          </div>
+          <div class="altar-legs"><span class="leg"></span><span class="apron"></span><span class="leg"></span></div>
+          <div class="prayer-mat" title="&#x8DEA;&#x4E8E;&#x84B2;&#x56E2;&#xFF0C;&#x5411;&#x795E;&#x660E;&#x53E9;&#x62DC;" role="button" tabindex="0" aria-label="&#x5728;&#x84B2;&#x56E2;&#x4E0A;&#x8DEA;&#x62DC;"></div>
+        </div>
+        <div class="ritual-actions">
+          <button class="btn btn-incense" data-target="card-fulushou">&#x4E0A;&#x4E09;&#x70B7;&#x9999;</button>
+          <button class="btn btn-kowtow" data-deity="&#x798F;&#x7984;&#x5BFF;&#x4E09;&#x661F;">&#x53E9;&#x62DC;&#x7948;&#x798F;</button>
+          <button class="btn btn-offer" data-offer="offerings-fulushou">&#x732E;&#x4F9B;</button>
+          <span class="deity-merit">&#x6B64;&#x9F9B;&#x529F;&#x5FB7; <b>0</b></span>
+          <p class="kowtow-msg"></p>
+        </div>
+      </div>
+
+      <!-- &#x4E2D;&#x5C42;&#xFF1A;&#x8D22;&#x795E;&#xFF08;&#x5DE6;&#xFF0C;&#x9752;&#x9F99;&#x62DB;&#x8D22;&#x4F4D;&#xFF09;+ &#x592A;&#x5C81;&#xFF08;&#x53F3;&#xFF0C;&#x6D41;&#x5E74;&#x5B89;&#x5949;&#x4F4D;&#xFF09; -->
+      <div class="deity-row" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px">
+        <div class="deity-card" id="card-caishen">
+          <div class="smoke-layer"></div>
+          <div class="deity-inner">
+            <div class="deity-portrait" id="portrait-caishen">
+              <div class="frame">
+                <img src="https://aka.doubaocdn.com/s/APDjihGLze" alt="&#x8D22;&#x795E;&#x8D75;&#x516C;&#x660E;&#x795E;&#x50CF;">
+                <div class="deity-nameplate">&#x8D22;&#x795E; &#xB7; &#x8D75;&#x516C;&#x660E;</div>
+              </div>
+            </div>
+            <div class="deity-main">
+              <h3>&#x8D22;&#x795E;</h3>
+              <p class="deity-duty">&#x53F8;&#x804C;&#xFF1A;&#x62DB;&#x8D22;&#x8FDB;&#x5B9D; &#xB7; &#x8D22;&#x6E90;&#x5E7F;&#x8FDB;</p>
+              <p class="deity-pos">&#x795E;&#x4F4D;&#xFF1A;<b>&#x4E2D;&#x9F9B;&#x5DE6;&#x9996; &#xB7; &#x9752;&#x9F99;&#x62DB;&#x8D22;&#x4F4D;</b>&#x3002;&#x9762;&#x5BF9;&#x795E;&#x9F9B;&#x4E4B;&#x5DE6;&#x4E3A;&#x9752;&#x9F99;&#x8D35;&#x4F4D;&#xFF0C;&#x8D22;&#x795E;&#x5B89;&#x5949;&#x4E8E;&#x6B64;&#x3001;&#x6B63;&#x5BF9;&#x5927;&#x95E8;&#xFF0C;&#x53D6;&#x300C;&#x9762;&#x5411;&#x95E8;&#x53E3;&#x3001;&#x62DB;&#x8D22;&#x5165;&#x5B85;&#x300D;&#x4E4B;&#x610F;&#xFF0C;&#x521D;&#x4E00;&#x3001;&#x5341;&#x4E94;&#x4E0A;&#x9999;&#x5C24;&#x5B9C;&#x3002;</p>
+            </div>
+          </div>
+          <div class="offerings-row">
+            <div class="offerings-head">&#x4F9B;&#x54C1;&#xFF08;&#x5DF2;&#x5907;&#x9F50;&#xFF09;</div>
+            <ul class="offering-list" id="offerings-caishen">
+              <li data-icon="apple"><span class="name">&#x82F9;&#x679C;</span><span class="mean">&#x5E73;&#x5E73;&#x5B89;&#x5B89;</span></li>
+              <li data-icon="orange"><span class="name">&#x91D1;&#x6A58;</span><span class="mean">&#x5927;&#x5409;&#x5927;&#x5229;</span></li>
+              <li data-icon="banana"><span class="name">&#x9999;&#x8549;</span><span class="mean">&#x91D1;&#x8549;&#x62DB;&#x8D22;</span></li>
+              <li data-icon="gao"><span class="name">&#x53D1;&#x7CD5;</span><span class="mean">&#x53D1;&#x8D22;&#x9AD8;&#x5347;</span></li>
+              <li data-icon="tangyuan"><span class="name">&#x6C64;&#x5706;</span><span class="mean">&#x5706;&#x6EE1;&#x805A;&#x8D22;</span></li>
+              <li data-icon="tang"><span class="name">&#x7CD6;&#x679C;</span><span class="mean">&#x751C;&#x5934;&#x5E7F;&#x7ED3;</span></li>
+              <li data-icon="tea"><span class="name">&#x4E09;&#x676F;&#x6E05;&#x8336;</span><span class="mean">&#x656C;&#x795E;&#x5FC5;&#x5907;</span></li>
+              <li data-icon="yuanbao"><span class="name">&#x5143;&#x5B9D;&#x70DB;</span><span class="mean">&#x7167;&#x8D22;&#x8DEF;</span></li>
+            </ul>
+          </div>
+          <div class="altar">
+            <div class="altar-top">
+              <div class="candle c-l"><span class="flame"></span></div>
+              <div class="candle c-r"><span class="flame"></span></div>
+              <div class="burner">
+                <div class="burner-ear l"></div>
+                <div class="burner-ear r"></div>
+                <div class="burner-body"><div class="burner-rim"></div></div>
+                <div class="burner-leg l"></div>
+                <div class="burner-leg c"></div>
+                <div class="burner-leg r"></div>
+                <div class="sticks-layer"></div>
+                <div class="ash"></div>
+              </div>
+              <div class="altar-items"></div>
+            </div>
+            <div class="altar-legs"><span class="leg"></span><span class="apron"></span><span class="leg"></span></div>
+          <div class="prayer-mat" title="&#x8DEA;&#x4E8E;&#x84B2;&#x56E2;&#xFF0C;&#x5411;&#x795E;&#x660E;&#x53E9;&#x62DC;" role="button" tabindex="0" aria-label="&#x5728;&#x84B2;&#x56E2;&#x4E0A;&#x8DEA;&#x62DC;"></div>
+          </div>
+          <div class="ritual-actions">
+            <button class="btn btn-incense" data-target="card-caishen">&#x4E0A;&#x4E09;&#x70B7;&#x9999;</button>
+            <button class="btn btn-kowtow" data-deity="&#x8D22;&#x795E;">&#x53E9;&#x62DC;&#x7948;&#x798F;</button>
+            <button class="btn btn-offer" data-offer="offerings-caishen">&#x732E;&#x4F9B;</button>
+            <span class="deity-merit">&#x6B64;&#x9F9B;&#x529F;&#x5FB7; <b>0</b></span>
+            <p class="kowtow-msg"></p>
+          </div>
+        </div>
+
+        <div class="deity-card" id="card-taisui">
+          <div class="smoke-layer"></div>
+          <div class="deity-inner">
+            <div class="deity-portrait" id="portrait-taisui">
+              <div class="frame">
+                <img src="https://aka.doubaocdn.com/s/2s0sVvroy4" alt="&#x592A;&#x5C81;&#x661F;&#x541B;&#x795E;&#x50CF;">
+                <div class="deity-nameplate" id="taisuiNameplate">&#x592A;&#x5C81;&#x661F;&#x541B;</div>
+              </div>
+            </div>
+            <div class="deity-main">
+              <h3>&#x592A;&#x5C81;&#x661F;&#x541B;</h3>
+              <p class="deity-duty" id="taisuiDuty">&#x53F8;&#x804C;&#xFF1A;&#x503C;&#x5E74;&#x638C;&#x8FD0; &#xB7; &#x6D41;&#x5E74;&#x5B88;&#x62A4;</p>
+              <p class="deity-pos">&#x795E;&#x4F4D;&#xFF1A;<b>&#x4E2D;&#x9F9B;&#x53F3;&#x9996; &#xB7; &#x6D41;&#x5E74;&#x5B89;&#x5949;&#x4F4D;</b>&#x3002;&#x503C;&#x5E74;&#x592A;&#x5C81;&#x9010;&#x5E74;&#x8F6E;&#x6362;&#xFF0C;&#x5B89;&#x5949;&#x4E8E;&#x6E05;&#x51C0;&#x9AD8;&#x5904;&#x7684;&#x4FA7;&#x4F4D;&#xFF0C;&#x540D;&#x53F7;&#x968F;&#x5E74;&#x4EFD;&#x81EA;&#x52A8;&#x66F4;&#x6362;&#xFF08;&#x89C1;&#x4E0B;&#x65B9;&#x300C;&#x503C;&#x5E74;&#x592A;&#x5C81;&#x300D;&#x533A;&#xFF09;&#x3002;&#x72AF;&#x592A;&#x5C81;&#x8005;&#x5C24;&#x5B9C;&#x6BCF;&#x6708;&#x521D;&#x4E00;&#x3001;&#x5341;&#x4E94;&#x8BDA;&#x5FC3;&#x796D;&#x5949;&#x3002;</p>
+            </div>
+          </div>
+          <div class="offerings-row">
+            <div class="offerings-head">&#x4F9B;&#x54C1;&#xFF08;&#x5DF2;&#x5907;&#x9F50;&#xFF09;</div>
+            <ul class="offering-list" id="offerings-taisui">
+              <li data-icon="tea"><span class="name">&#x4E09;&#x676F;&#x6E05;&#x8336;</span><span class="mean">&#x656C;&#x795E;&#x5FC5;&#x5907;</span></li>
+              <li data-icon="apple"><span class="name">&#x65F6;&#x4EE4;&#x6C34;&#x679C;</span><span class="mean">&#x8BDA;&#x5FC3;&#x4F9B;&#x5949;</span></li>
+              <li data-icon="liuzhai"><span class="name">&#x516D;&#x658B;</span><span class="mean">&#x91D1;&#x9488;&#x6728;&#x8033;&#x9999;&#x83C7;&#x7B49;</span></li>
+              <li data-icon="taisuifu"><span class="name">&#x592A;&#x5C81;&#x7B26;</span><span class="mean">&#x5B89;&#x5949;&#x503C;&#x5E74;</span></li>
+              <li data-icon="candle"><span class="name">&#x9999;&#x70DB;</span><span class="mean">&#x5149;&#x660E;&#x7948;&#x798F;</span></li>
+              <li data-icon="jinzhi"><span class="name">&#x91D1;&#x7EB8;</span><span class="mean">&#x656C;&#x5949;&#x795E;&#x5C06;</span></li>
+            </ul>
+          </div>
+          <div class="altar">
+            <div class="altar-top">
+              <div class="candle c-l"><span class="flame"></span></div>
+              <div class="candle c-r"><span class="flame"></span></div>
+              <div class="burner">
+                <div class="burner-ear l"></div>
+                <div class="burner-ear r"></div>
+                <div class="burner-body"><div class="burner-rim"></div></div>
+                <div class="burner-leg l"></div>
+                <div class="burner-leg c"></div>
+                <div class="burner-leg r"></div>
+                <div class="sticks-layer"></div>
+                <div class="ash"></div>
+              </div>
+              <div class="altar-items"></div>
+            </div>
+            <div class="altar-legs"><span class="leg"></span><span class="apron"></span><span class="leg"></span></div>
+          <div class="prayer-mat" title="&#x8DEA;&#x4E8E;&#x84B2;&#x56E2;&#xFF0C;&#x5411;&#x795E;&#x660E;&#x53E9;&#x62DC;" role="button" tabindex="0" aria-label="&#x5728;&#x84B2;&#x56E2;&#x4E0A;&#x8DEA;&#x62DC;"></div>
+          </div>
+          <div class="ritual-actions">
+            <button class="btn btn-incense" data-target="card-taisui">&#x4E0A;&#x4E09;&#x70B7;&#x9999;</button>
+            <button class="btn btn-kowtow" data-deity="&#x592A;&#x5C81;&#x661F;&#x541B;">&#x53E9;&#x62DC;&#x7948;&#x798F;</button>
+            <button class="btn btn-offer" data-offer="offerings-taisui">&#x732E;&#x4F9B;</button>
+            <span class="deity-merit">&#x6B64;&#x9F9B;&#x529F;&#x5FB7; <b>0</b></span>
+            <p class="kowtow-msg"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- &#x4E0B;&#x5C42;&#xFF1A;&#x571F;&#x5730;&#x795E;&#xFF08;&#x63A5;&#x5730;&#x5B88;&#x95E8;&#x4F4D;&#xFF09; -->
+      <div class="deity-card" id="card-tudi">
+        <div class="smoke-layer"></div>
+        <div class="deity-inner">
+          <div class="deity-portrait" id="portrait-tudi">
+            <div class="frame">
+              <img src="https://aka.doubaocdn.com/s/U7F1WhabHS" alt="&#x571F;&#x5730;&#x795E;&#x795E;&#x50CF;">
+              <div class="deity-nameplate">&#x571F;&#x5730;&#x795E; &#xB7; &#x798F;&#x5FB7;&#x6B63;&#x795E;</div>
+            </div>
+          </div>
+          <div class="deity-main">
+            <h3>&#x571F;&#x5730;&#x795E;</h3>
+            <p class="deity-duty">&#x53F8;&#x804C;&#xFF1A;&#x5B88;&#x571F;&#x62A4;&#x5B85; &#xB7; &#x4E94;&#x8C37;&#x4E30;&#x767B;</p>
+            <p class="deity-pos">&#x795E;&#x4F4D;&#xFF1A;<b>&#x4E0B;&#x9F9B;&#x63A5;&#x5730;&#x5B88;&#x95E8;&#x4F4D;</b>&#x3002;&#x571F;&#x5730;&#x516C;&#x804C;&#x53F8;&#x4E00;&#x65B9;&#x571F;&#x5730;&#xFF0C;&#x4F4D;&#x4EFD;&#x6700;&#x4F4E;&#x800C;&#x6700;&#x4EB2;&#x6C11;&#xFF0C;&#x4F20;&#x7EDF;&#x4F9B;&#x5949;&#x4E8E;&#x95E8;&#x53E3;&#x5185;&#x4FA7;&#x4F4E;&#x5904;&#x6216;&#x5C4B;&#x89D2;&#x8FD1;&#x5730;&#x4E4B;&#x5904;&#x3002;&#x6545;&#x7F6E;&#x4E8E;&#x795E;&#x9F9B;&#x6700;&#x5E95;&#x5C42;&#xFF0C;&#x8D34;&#x8FD1;&#x5730;&#x9762;&#x3001;&#x6B63;&#x5BF9;&#x95E8;&#x53E3;&#xFF0C;&#x9547;&#x5B88;&#x5BB6;&#x5B85;&#x5E73;&#x5B89;&#x3002;</p>
+            <div class="offerings">
+              <div class="offerings-head">&#x4F9B;&#x54C1;&#xFF08;&#x5DF2;&#x5907;&#x9F50;&#xFF09;</div>
+              <ul class="offering-list" id="offerings-tudi">
+                <li data-icon="tea"><span class="name">&#x4E09;&#x676F;&#x6E05;&#x8336;</span><span class="mean">&#x656C;&#x5949;&#x5730;&#x7947;</span></li>
+                <li data-icon="apple"><span class="name">&#x82F9;&#x679C;</span><span class="mean">&#x5E73;&#x5E73;&#x5B89;&#x5B89;</span></li>
+                <li data-icon="banana"><span class="name">&#x9999;&#x8549;</span><span class="mean">&#x62DB;&#x8D22;&#x8FDB;&#x5B9D;</span></li>
+                <li data-icon="migao"><span class="name">&#x7C73;&#x7CD5;&#x53D1;&#x7CD5;</span><span class="mean">&#x4E94;&#x8C37;&#x4E30;&#x767B;</span></li>
+                <li data-icon="candle"><span class="name">&#x9999;&#x70DB;</span><span class="mean">&#x5149;&#x660E;&#x62A4;&#x5B85;</span></li>
+                <li data-icon="jinzhi"><span class="name">&#x91D1;&#x7EB8;</span><span class="mean">&#x656C;&#x5949;&#x798F;&#x5FB7;</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="altar">
+          <div class="altar-top">
+            <div class="candle c-l"><span class="flame"></span></div>
+            <div class="candle c-r"><span class="flame"></span></div>
+            <div class="burner">
+              <div class="burner-ear l"></div>
+              <div class="burner-ear r"></div>
+              <div class="burner-body"><div class="burner-rim"></div></div>
+              <div class="burner-leg l"></div>
+              <div class="burner-leg c"></div>
+              <div class="burner-leg r"></div>
+              <div class="sticks-layer"></div>
+              <div class="ash"></div>
+            </div>
+            <div class="altar-items"></div>
+          </div>
+          <div class="altar-legs"><span class="leg"></span><span class="apron"></span><span class="leg"></span></div>
+          <div class="prayer-mat" title="&#x8DEA;&#x4E8E;&#x84B2;&#x56E2;&#xFF0C;&#x5411;&#x795E;&#x660E;&#x53E9;&#x62DC;" role="button" tabindex="0" aria-label="&#x5728;&#x84B2;&#x56E2;&#x4E0A;&#x8DEA;&#x62DC;"></div>
+        </div>
+        <div class="ritual-actions">
+          <button class="btn btn-incense" data-target="card-tudi">&#x4E0A;&#x4E09;&#x70B7;&#x9999;</button>
+          <button class="btn btn-kowtow" data-deity="&#x571F;&#x5730;&#x795E;">&#x53E9;&#x62DC;&#x7948;&#x798F;</button>
+          <button class="btn btn-offer" data-offer="offerings-tudi">&#x732E;&#x4F9B;</button>
+          <span class="deity-merit">&#x6B64;&#x9F9B;&#x529F;&#x5FB7; <b>0</b></span>
+          <p class="kowtow-msg"></p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- &#x4F4D;&#x6B21;&#x8BF4;&#x660E; -->
+    <div class="hierarchy-note">
+      <div class="slot"><b>&#x4E0A;&#x9F9B; &#xB7; &#x4E2D;&#x592E;</b>&#x798F;&#x7984;&#x5BFF;&#x4E09;&#x661F;<span class="tag">&#x4E3B;&#x4F4D;&#x81F3;&#x5C0A;</span></div>
+      <div class="slot"><b>&#x4E2D;&#x9F9B; &#xB7; &#x5DE6;</b>&#x8D22;&#x795E; &#x8D75;&#x516C;&#x660E;<span class="tag">&#x9752;&#x9F99;&#x62DB;&#x8D22;</span></div>
+      <div class="slot"><b>&#x4E2D;&#x9F9B; &#xB7; &#x53F3;</b>&#x503C;&#x5E74;&#x592A;&#x5C81;<span class="tag">&#x6D41;&#x5E74;&#x8F6E;&#x503C;</span></div>
+      <div class="slot"><b>&#x4E0B;&#x9F9B; &#xB7; &#x63A5;&#x5730;</b>&#x571F;&#x5730;&#x795E;<span class="tag">&#x5B88;&#x95E8;&#x62A4;&#x5B85;</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== &#x503C;&#x5E74;&#x592A;&#x5C81;&#x533A; ===== -->
+<section class="taisui-panel">
+  <div class="panel-card">
+    <h2 class="panel-title">&#x503C;&#x5E74;&#x592A;&#x5C81;
+      <small>&#x516D;&#x5341;&#x7532;&#x5B50; &#xB7; &#x4E00;&#x5E74;&#x4E00;&#x6362; &#xB7; &#x968F;&#x5E74;&#x4EFD;&#x81EA;&#x52A8;&#x66F4;&#x66FF;</small>
+    </h2>
+    <div class="taisui-current">
+      <div class="taisui-portrait">
+        <img src="https://aka.doubaocdn.com/s/2s0sVvroy4" alt="&#x592A;&#x5C81;&#x661F;&#x541B;&#x795E;&#x50CF;">
+      </div>
+      <div class="taisui-name">
+        <div class="ganzhi" id="tsGanzhi">--</div>
+        <div class="jiangjun" id="tsJiangjun">--</div>
+        <div class="desc" id="tsDesc">&#x70B9;&#x51FB;&#x4E0B;&#x65B9;&#x5E74;&#x4EFD;&#xFF0C;&#x67E5;&#x770B;&#x4EFB;&#x610F;&#x4E00;&#x5E74;&#x7684;&#x503C;&#x5E74;&#x592A;&#x5C81;</div>
+      </div>
+    </div>
+    <div class="year-picker" id="yearPicker" role="group" aria-label="&#x9009;&#x62E9;&#x5E74;&#x4EFD;&#x67E5;&#x770B;&#x503C;&#x5E74;&#x592A;&#x5C81;"></div>
+    <div class="fan-taisui" id="fanTaisui"></div>
+    <div class="taisui-tip" id="tsTip"></div>
+  </div>
+</section>
+
+<!-- ===== &#x62DC;&#x795E;&#x987B;&#x77E5; ===== -->
+<section class="ritual-guide">
+  <div class="guide-card">
+    <h2 class="guide-title">&#x62DC;&#x795E;&#x5C0F;&#x8D34;&#x58EB;</h2>
+    <div class="guide-grid">
+      <div class="guide-item">
+        <h4>&#x4F55;&#x65F6;&#x62DC;</h4>
+        <p>&#x6BCF;&#x6708;<b class="gold">&#x521D;&#x4E00;&#x3001;&#x5341;&#x4E94;</b>&#x4E3A;&#x6714;&#x671B;&#x5409;&#x65E5;&#xFF0C;&#x662F;&#x6C11;&#x95F4;&#x796D;&#x62DC;&#x7684;&#x6B63;&#x65E5;&#x5B50;&#xFF1B;&#x6B63;&#x6708;&#x671F;&#x95F4;&#xFF08;&#x5C24;&#x5176;&#x6B63;&#x6708;&#x521D;&#x4E00;&#x3001;&#x521D;&#x4E94;&#x8FCE;&#x8D22;&#x795E;&#x3001;&#x521D;&#x516B;&#x987A;&#x661F;&#x5B89;&#x592A;&#x5C81;&#xFF09;&#x5C24;&#x4E3A;&#x9686;&#x91CD;&#x3002;</p>
+      </div>
+      <div class="guide-item">
+        <h4>&#x600E;&#x4E48;&#x62DC;</h4>
+        <p>&#x51C0;&#x624B;&#x66F4;&#x8863;&#xFF0C;&#x70B9;&#x71C3;&#x4E09;&#x70B7;&#x9999;&#xFF0C;&#x53CC;&#x624B;&#x4E3E;&#x9999;&#x9F50;&#x7709;&#xFF0C;&#x9762;&#x5411;&#x795E;&#x9F9B;&#x4E09;&#x62DC;&#xFF1B;&#x5FC3;&#x4E2D;&#x9ED8;&#x5FF5;&#x59D3;&#x540D;&#x3001;&#x4F4F;&#x5740;&#x4E0E;&#x6240;&#x6C42;&#x4E4B;&#x4E8B;&#xFF0C;&#x8BB8;&#x613F;&#x540E;&#x884C;&#x4E09;&#x53E9;&#x9996;&#x4E4B;&#x793C;&#x3002;</p>
+      </div>
+      <div class="guide-item">
+        <h4>&#x4F9B;&#x4EC0;&#x4E48;</h4>
+        <p>&#x4F9B;&#x54C1;&#x5B9C;&#x300C;&#x8364;&#x7D20;&#x4ECE;&#x5FC3;&#x3001;&#x5E72;&#x51C0;&#x65B0;&#x9C9C;&#x300D;&#xFF0C;&#x5E38;&#x89C1;&#x4E3A;&#x4E09;&#x676F;&#x8336;&#x3001;&#x65F6;&#x4EE4;&#x6C34;&#x679C;&#x3001;&#x7CD5;&#x70B9;&#x7CD6;&#x679C;&#xFF1B;&#x672C;&#x9875;&#x5DF2;&#x6309;&#x5404;&#x795E;&#x4F4D;&#x914D;&#x9F50;&#x4F20;&#x7EDF;&#x4F9B;&#x54C1;&#xFF0C;&#x70B9;&#x51FB;&#x300C;&#x732E;&#x4F9B;&#x300D;&#x5373;&#x53EF;&#x6446;&#x4E0A;&#x4F9B;&#x684C;&#x3002;</p>
+      </div>
+      <div class="guide-item">
+        <h4>&#x5B89;&#x592A;&#x5C81;</h4>
+        <p>&#x72AF;&#x592A;&#x5C81;&#x8005;&#x53EF;&#x4E8E;&#x6B63;&#x6708;&#x521D;&#x516B;&#x6216;&#x6B63;&#x6708;&#x5341;&#x4E94;&#x524D;&#x5B89;&#x592A;&#x5C81;&#xFF1A;&#x5907;&#x592A;&#x5C81;&#x7B26;&#x4E0E;&#x516D;&#x658B;&#xFF0C;&#x8BDA;&#x5FC3;&#x796D;&#x62DC;&#x503C;&#x5E74;&#x592A;&#x5C81;&#xFF0C;&#x9022;&#x521D;&#x4E00;&#x5341;&#x4E94;&#x7EED;&#x9999;&#xFF0C;&#x5C81;&#x672B;&#x8C22;&#x592A;&#x5C81;&#x3002;</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-seal">&#x798F;</div>
+  <div>&#x5FC3;&#x8BDA;&#x5219;&#x7075; &#xB7; &#x6240;&#x613F;&#x7686;&#x6210;</div>
+  <div class="copyright">&#xA9; 2026 &#x5236;&#x4F5C;&#x8005;&#xFF1A;&#x8F66;&#x5764;&#x5FB7; &#xB7; &#x8D5B;&#x535A;&#x62DC;&#x795E; &#xB7; &#x7248;&#x6743;&#x6240;&#x6709;</div>
+  <div class="disclaimer">&#x672C;&#x9875;&#x4E3A;&#x8D5B;&#x535A;&#x6C11;&#x4FD7;&#x4E92;&#x52A8;&#x9875;&#xFF0C;&#x795E;&#x4F4D;&#x4E0E;&#x4F9B;&#x54C1;&#x4F9D;&#x636E;&#x4F20;&#x7EDF;&#x6C11;&#x4FD7;&#x5E38;&#x8BC6;&#x6392;&#x5E03;&#xFF0C;&#x4EC5;&#x4F9B;&#x6587;&#x5316;&#x4F53;&#x9A8C;&#x4E0E;&#x5A31;&#x4E50;&#x53C2;&#x8003;&#xFF0C;&#x4E0D;&#x6784;&#x6210;&#x4EFB;&#x4F55;&#x73B0;&#x5B9E;&#x5B97;&#x6559;&#x5EFA;&#x8BAE;&#x3002;</div>
+</footer>
+
+<script>
+/* =========================================================
+ * \u4E00\u3001\u519C\u5386\u8BA1\u7B97\uFF081900\u20132100\uFF0C\u6807\u51C6\u6570\u636E\u8868\uFF09
+ * ========================================================= */
+var lunarInfo = [
+0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,
+0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977,
+0x04970,0x0a4b0,0x0b4b5,0x06a50,0x06d40,0x1ab54,0x02b60,0x09570,0x052f2,0x04970,
+0x06566,0x0d4a0,0x0ea50,0x06e95,0x05ad0,0x02b60,0x186e3,0x092e0,0x1c8d7,0x0c950,
+0x0d4a0,0x1d8a6,0x0b550,0x056a0,0x1a5b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0b557,
+0x06ca0,0x0b550,0x15355,0x04da0,0x0a5b0,0x14573,0x052b0,0x0a9a8,0x0e950,0x06aa0,
+0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05260,0x0f263,0x0d950,0x05b57,0x056a0,
+0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,0x0b540,0x0b6a0,0x195a6,
+0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0af46,0x0ab60,0x09570,
+0x04af5,0x04970,0x064b0,0x074a3,0x0ea50,0x06b58,0x055c0,0x0ab60,0x096d5,0x092e0,
+0x0c960,0x0d954,0x0d4a0,0x0da50,0x07552,0x056a0,0x0abb7,0x025d0,0x092d0,0x0cab5,
+0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930,
+0x07954,0x06aa0,0x0ad50,0x05b52,0x04b60,0x0a6e6,0x0a4e0,0x0d260,0x0ea65,0x0d530,
+0x05aa0,0x076a3,0x096d0,0x04afb,0x04ad0,0x0a4d0,0x1d0b6,0x0d250,0x0d520,0x0dd45,
+0x0b5a0,0x056d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0,
+0x14b63,0x09370,0x049f8,0x04970,0x064b0,0x168a6,0x0ea50,0x06b20,0x1a6c4,0x0aae0,
+0x092e0,0x0d2e3,0x0c960,0x0d557,0x0d4a0,0x0da50,0x05d55,0x056a0,0x0a6d0,0x055d4,
+0x052d0,0x0a9b8,0x0a950,0x0b4a0,0x0b6a6,0x0ad50,0x055a0,0x0aba4,0x0a5b0,0x052b0,
+0x0b273,0x06930,0x07337,0x06aa0,0x0ad50,0x14b55,0x04b60,0x0a570,0x054e4,0x0d160,
+0x0e968,0x0d520,0x0daa0,0x16aa6,0x056d0,0x04ae0,0x0a9d4,0x0a2d0,0x0d150,0x0f252,
+0x0d520];
+
+function lLeapMonth(y){return lunarInfo[y-1900] & 0xf}
+function lLeapDays(y){return lLeapMonth(y) ? ((lunarInfo[y-1900] & 0x10000) ? 30 : 29) : 0}
+function lMonthDays(y,m){return (lunarInfo[y-1900] & (0x10000 >> m)) ? 30 : 29}
+function lYearDays(y){
+  var sum=348;
+  for(var i=0x8000;i>0x8;i>>=1){ if(lunarInfo[y-1900] & i) sum++ }
+  return sum + lLeapDays(y);
+}
+var Gan=["\u7532","\u4E59","\u4E19","\u4E01","\u620A","\u5DF1","\u5E9A","\u8F9B","\u58EC","\u7678"];
+var Zhi=["\u5B50","\u4E11","\u5BC5","\u536F","\u8FB0","\u5DF3","\u5348","\u672A","\u7533","\u9149","\u620C","\u4EA5"];
+var Zodiac=["\u9F20","\u725B","\u864E","\u5154","\u9F99","\u86C7","\u9A6C","\u7F8A","\u7334","\u9E21","\u72D7","\u732A"];
+var MonthCn=["\u6B63","\u4E8C","\u4E09","\u56DB","\u4E94","\u516D","\u4E03","\u516B","\u4E5D","\u5341","\u51AC","\u814A"];
+var DayCn=["\u521D\u4E00","\u521D\u4E8C","\u521D\u4E09","\u521D\u56DB","\u521D\u4E94","\u521D\u516D","\u521D\u4E03","\u521D\u516B","\u521D\u4E5D","\u521D\u5341",
+"\u5341\u4E00","\u5341\u4E8C","\u5341\u4E09","\u5341\u56DB","\u5341\u4E94","\u5341\u516D","\u5341\u4E03","\u5341\u516B","\u5341\u4E5D","\u4E8C\u5341",
+"\u5EFF\u4E00","\u5EFF\u4E8C","\u5EFF\u4E09","\u5EFF\u56DB","\u5EFF\u4E94","\u5EFF\u516D","\u5EFF\u4E03","\u5EFF\u516B","\u5EFF\u4E5D","\u4E09\u5341"];
+
+function solar2lunar(y,m,d){
+  var baseDate = new Date(1900,0,31);
+  var objDate = new Date(y, m-1, d);
+  var offset = Math.floor((objDate - baseDate) / 86400000);
+  var i, temp=0;
+  for(i=1900; i<2101 && temp+ lYearDays(i) <= offset; i++){ temp += lYearDays(i) }
+  var lunarYear = i;
+  var yearDays = lYearDays(i);
+  var leap = lLeapMonth(i);
+  var isLeap=false;
+  offset -= temp;
+  for(i=1; i<13 && offset>0; i++){
+    if(leap>0 && i==(leap+1) && !isLeap){
+      --i; isLeap=true; temp = lLeapDays(lunarYear);
+    } else {
+      temp = lMonthDays(lunarYear, i);
+    }
+    if(isLeap && i==(leap+1)){ isLeap=false }
+    offset -= temp;
+  }
+  if(offset===0 && leap>0 && i===leap+1){
+    if(isLeap){ isLeap=false } else { isLeap=true; --i }
+  }
+  if(offset<0){ offset+=temp; --i }
+  var lunarMonth=i;
+  var lunarDay=offset+1;
+  var ganzhiIdx=(lunarYear-4)%60;
+  if(ganzhiIdx<0) ganzhiIdx+=60;
+  return {
+    lunarYear:lunarYear,
+    lunarMonth:lunarMonth,
+    lunarDay:lunarDay,
+    isLeap:isLeap,
+    ganZhiYear:Gan[ganzhiIdx%10]+Zhi[ganzhiIdx%12],
+    zodiac:Zodiac[ganzhiIdx%12],
+    monthCn:(isLeap?"\u95F0":"")+MonthCn[lunarMonth-1]+"\u6708",
+    dayCn:DayCn[lunarDay-1],
+    isChuyi: lunarDay===1,
+    isShiwu: lunarDay===15
+  };
+}
+
+/* =========================================================
+ * \u4E8C\u3001\u516D\u5341\u7532\u5B50\u503C\u5E74\u592A\u5C81\u540D\u53F7\uFF08\u5DF2\u6838\u5BF9\u4E3B\u6D41\u7248\u672C\uFF09
+ * ========================================================= */
+var TaiSui60 = {
+"\u7532\u5B50":"\u91D1\u8FA8","\u4E59\u4E11":"\u9648\u6750","\u4E19\u5BC5":"\u803F\u7AE0","\u4E01\u536F":"\u6C88\u5174","\u620A\u8FB0":"\u8D75\u8FBE","\u5DF1\u5DF3":"\u90ED\u707F",
+"\u5E9A\u5348":"\u738B\u6D4E","\u8F9B\u672A":"\u674E\u7D20","\u58EC\u7533":"\u5218\u65FA","\u7678\u9149":"\u5EB7\u5FD7","\u7532\u620C":"\u65BD\u5E7F","\u4E59\u4EA5":"\u4EFB\u4FDD",
+"\u4E19\u5B50":"\u90ED\u5609","\u4E01\u4E11":"\u6C6A\u6587","\u620A\u5BC5":"\u9C81\u5148","\u5DF1\u536F":"\u9F99\u4EF2","\u5E9A\u8FB0":"\u8463\u5FB7","\u8F9B\u5DF3":"\u90D1\u4F46",
+"\u58EC\u5348":"\u9646\u660E","\u7678\u672A":"\u9B4F\u4EC1","\u7532\u7533":"\u65B9\u6770","\u4E59\u9149":"\u848B\u5D07","\u4E19\u620C":"\u767D\u654F","\u4E01\u4EA5":"\u5C01\u6D4E",
+"\u620A\u5B50":"\u90B9\u94DB","\u5DF1\u4E11":"\u5085\u4F51","\u5E9A\u5BC5":"\u90AC\u6853","\u8F9B\u536F":"\u8303\u5B81","\u58EC\u8FB0":"\u5F6D\u6CF0","\u7678\u5DF3":"\u5F90\u5355",
+"\u7532\u5348":"\u7AE0\u8BCD","\u4E59\u672A":"\u6768\u4ED9","\u4E19\u7533":"\u7BA1\u4EF2","\u4E01\u9149":"\u5510\u6770","\u620A\u620C":"\u59DC\u6B66","\u5DF1\u4EA5":"\u8C22\u592A",
+"\u5E9A\u5B50":"\u5362\u79D8","\u8F9B\u4E11":"\u6768\u4FE1","\u58EC\u5BC5":"\u8D3A\u8C14","\u7678\u536F":"\u76AE\u65F6","\u7532\u8FB0":"\u674E\u8BDA","\u4E59\u5DF3":"\u5434\u9042",
+"\u4E19\u5348":"\u6587\u54F2","\u4E01\u672A":"\u7F2A\u4E19","\u620A\u7533":"\u5F90\u6D69","\u5DF1\u9149":"\u7A0B\u5B9D","\u5E9A\u620C":"\u502A\u79D8","\u8F9B\u4EA5":"\u53F6\u575A",
+"\u58EC\u5B50":"\u4E18\u5FB7","\u7678\u4E11":"\u6731\u5F97","\u7532\u5BC5":"\u5F20\u671D","\u4E59\u536F":"\u4E07\u6E05","\u4E19\u8FB0":"\u8F9B\u4E9A","\u4E01\u5DF3":"\u6768\u5F66",
+"\u620A\u5348":"\u9ECE\u537F","\u5DF1\u672A":"\u5085\u515A","\u5E9A\u7533":"\u6BDB\u6893","\u8F9B\u9149":"\u77F3\u653F","\u58EC\u620C":"\u6D2A\u5145","\u7678\u4EA5":"\u865E\u7A0B"};
+
+/* \u72AF\u592A\u5C81\uFF1A\u503C / \u51B2 / \u5211 / \u5BB3 / \u7834 */
+var ZhiChong = {\u5B50:"\u5348",\u5348:"\u5B50",\u4E11:"\u672A",\u672A:"\u4E11",\u5BC5:"\u7533",\u7533:"\u5BC5",\u536F:"\u9149",\u9149:"\u536F",\u8FB0:"\u620C",\u620C:"\u8FB0",\u5DF3:"\u4EA5",\u4EA5:"\u5DF3"};
+var ZhiHai   = {\u5B50:"\u672A",\u672A:"\u5B50",\u4E11:"\u5348",\u5348:"\u4E11",\u5BC5:"\u5DF3",\u5DF3:"\u5BC5",\u536F:"\u8FB0",\u8FB0:"\u536F",\u7533:"\u4EA5",\u4EA5:"\u7533",\u9149:"\u620C",\u620C:"\u9149"};
+var ZhiPo    = {\u5B50:"\u9149",\u9149:"\u5B50",\u5348:"\u536F",\u536F:"\u5348",\u5BC5:"\u4EA5",\u4EA5:"\u5BC5",\u8FB0:"\u4E11",\u4E11:"\u8FB0",\u5DF3:"\u7533",\u7533:"\u5DF3",\u672A:"\u620C",\u620C:"\u672A"};
+var XingGroups = [["\u5BC5","\u5DF3","\u7533"],["\u4E11","\u620C","\u672A"],["\u5B50","\u536F"]];
+var ZiXing = ["\u8FB0","\u5348","\u9149","\u4EA5"];
+var ZodiacOfZhi = {\u5B50:"\u9F20",\u4E11:"\u725B",\u5BC5:"\u864E",\u536F:"\u5154",\u8FB0:"\u9F99",\u5DF3:"\u86C7",\u5348:"\u9A6C",\u672A:"\u7F8A",\u7533:"\u7334",\u9149:"\u9E21",\u620C:"\u72D7",\u4EA5:"\u732A"};
+
+function ganzhiOfYear(y){
+  var idx=(y-4)%60; if(idx<0) idx+=60;
+  return Gan[idx%10]+Zhi[idx%12];
+}
+function fanTaisuiOfYear(y){
+  var gz = ganzhiOfYear(y);
+  var z = gz[1];
+  var result=[];
+  result.push({kind:"\u503C\u592A\u5C81", z:z, zodiac:ZodiacOfZhi[z], hot:true});
+  var cz = ZhiChong[z];
+  result.push({kind:"\u51B2\u592A\u5C81", z:cz, zodiac:ZodiacOfZhi[cz], hot:true});
+  var xing=[];
+  if(ZiXing.indexOf(z)>=0){ xing.push(z) }
+  for(var i=0;i<XingGroups.length;i++){
+    var g=XingGroups[i];
+    if(g.indexOf(z)>=0){ for(var j=0;j<g.length;j++){ if(g[j]!==z) xing.push(g[j]) } }
+  }
+  xing.forEach(function(xz){ result.push({kind:"\u5211\u592A\u5C81", z:xz, zodiac:ZodiacOfZhi[xz], hot:true}) });
+  result.push({kind:"\u5BB3\u592A\u5C81", z:ZhiHai[z], zodiac:ZodiacOfZhi[ZhiHai[z]], hot:false});
+  result.push({kind:"\u7834\u592A\u5C81", z:ZhiPo[z], zodiac:ZodiacOfZhi[ZhiPo[z]], hot:false});
+  return result;
+}
+
+/* =========================================================
+ * \u4E09\u3001\u9875\u9762\u6E32\u67D3\uFF1A\u4ECA\u65E5\u9EC4\u5386
+ * ========================================================= */
+function todayText(){
+  var now = new Date();
+  var l = solar2lunar(now.getFullYear(), now.getMonth()+1, now.getDate());
+  document.getElementById("solarText").textContent =
+    now.getFullYear()+"\u5E74"+(now.getMonth()+1)+"\u6708"+now.getDate()+"\u65E5";
+  document.getElementById("lunarText").textContent =
+    l.ganZhiYear+"\u5E74 "+l.monthCn+l.dayCn;
+  document.getElementById("zodiacText").textContent = "\u5C5E"+l.zodiac;
+  var ts = TaiSui60[l.ganZhiYear] || "--";
+  document.getElementById("todayTaisui").textContent = l.ganZhiYear+" \u00B7 "+ts+"\u5927\u5C06\u519B";
+  if(l.isChuyi || l.isShiwu){
+    document.getElementById("luckyDay").classList.add("show");
+  }
+  return l;
+}
+
+/* =========================================================
+ * \u56DB\u3001\u503C\u5E74\u592A\u5C81\u533A\uFF1A\u5E74\u4EFD\u5207\u6362
+ * ========================================================= */
+var currentYear = new Date().getFullYear();
+function renderTaisui(y){
+  var gz = ganzhiOfYear(y);
+  var jj = TaiSui60[gz];
+  document.getElementById("tsGanzhi").textContent = gz+"\u5E74";
+  document.getElementById("tsJiangjun").textContent = jj+"\u5927\u5C06\u519B";
+  document.getElementById("tsDesc").textContent =
+    y+"\u5E74\u503C\u5E74\u592A\u5C81 \u00B7 \u638C\u7BA1\u5168\u5E74\u5409\u51F6\u7978\u798F";
+  document.getElementById("taisuiNameplate").textContent = gz+"\u5E74 \u00B7 "+jj;
+  document.getElementById("taisuiDuty").textContent = "\u53F8\u804C\uFF1A"+gz+"\u5E74\u503C\u5E74\u638C\u8FD0 \u00B7 \u6D41\u5E74\u5B88\u62A4";
+
+  var fans = fanTaisuiOfYear(y);
+  var wrap = document.getElementById("fanTaisui");
+  wrap.innerHTML = "";
+  fans.forEach(function(f){
+    var d = document.createElement("div");
+    d.className = "fan-item"+(f.hot?" hot":"");
+    var hotLabel = f.kind==="\u503C\u592A\u5C81" ? "\uFF08\u672C\u547D\u5E74\uFF09" : (f.kind==="\u5211\u592A\u5C81"?"\uFF08\u81EA\u5211/\u4E92\u5211\uFF09":"");
+    d.innerHTML =
+      '<div class="kind">'+f.kind+hotLabel+'</div>'+
+      '<div class="zodiac">\u5C5E<b>'+f.zodiac+'</b></div>'+
+      '<div class="tip">'+fanTip(f.kind)+'</div>';
+    wrap.appendChild(d);
+  });
+
+  var hotList = [];
+  fans.forEach(function(f){ if(f.hot && hotList.indexOf(f.zodiac)<0) hotList.push(f.zodiac) });
+  document.getElementById("tsTip").innerHTML =
+    "<b>\u5B89\u592A\u5C81\u63D0\u793A\uFF1A</b>"+y+"\u5E74\u4E3A"+gz+"\u5E74\uFF0C\u503C\u5E74\u592A\u5C81\u4E3A<b>"+jj+"\u5927\u5C06\u519B</b>\uFF1B"+
+    (hotList.length? "\u4ECA\u5E74\u4E0E\u592A\u5C81\u76F8\u72AF\u7684\u751F\u8096\u4E3A <b>"+hotList.map(function(z){return "\u5C5E"+z}).join("\u3001")+"</b>\uFF0C\u53EF\u4E8E\u6B63\u6708\u521D\u516B\u6216\u6B63\u6708\u5341\u4E94\u524D\u5907\u592A\u5C81\u7B26\u4E0E\u516D\u658B\u8BDA\u5FC3\u796D\u62DC\uFF0C\u9022\u521D\u4E00\u3001\u5341\u4E94\u7EED\u9999\u3002" : "\u4ECA\u5E74\u65E0\u751F\u8096\u72AF\u592A\u5C81\uFF0C\u8BF8\u4E8B\u5B89\u7A33\u3002");
+
+  var btns = document.querySelectorAll("#yearPicker button");
+  btns.forEach(function(b){ b.classList.toggle("on", parseInt(b.dataset.year,10)===y) });
+}
+function fanTip(kind){
+  var tips = {
+    "\u503C\u592A\u5C81":"\u672C\u547D\u5E74\u5750\u592A\u5C81\uFF0C\u5B9C\u5B88\u4E0D\u5B9C\u653B\uFF0C\u51E1\u4E8B\u6C42\u7A33\u3002",
+    "\u51B2\u592A\u5C81":"\u4E0E\u6D41\u5E74\u76F8\u51B2\uFF0C\u53D8\u52A8\u8F83\u591A\uFF0C\u4EE5\u9759\u5236\u52A8\u3002",
+    "\u5211\u592A\u5C81":"\u5211\u4F24\u4E4B\u8C61\uFF0C\u6CE8\u610F\u53E3\u820C\u4E0E\u5065\u5EB7\uFF0C\u8C28\u8A00\u614E\u884C\u3002",
+    "\u5BB3\u592A\u5C81":"\u5C0F\u4EBA\u6697\u5BB3\uFF0C\u5B9C\u9632\u662F\u975E\uFF0C\u591A\u884C\u5584\u4E8B\u3002",
+    "\u7834\u592A\u5C81":"\u6613\u6709\u7834\u8017\uFF0C\u8C28\u614E\u6295\u8D44\u4E0E\u7B7E\u7EA6\u3002"
+  };
+  return tips[kind] || "";
+}
+function buildYearPicker(){
+  var wrap = document.getElementById("yearPicker");
+  for(var y=2024; y<=2035; y++){
+    var b = document.createElement("button");
+    b.type="button";
+    b.dataset.year = y;
+    b.textContent = y+" \u00B7 "+ganzhiOfYear(y)+"\u5E74";
+    if(y===currentYear) b.classList.add("on");
+    b.addEventListener("click", function(){ renderTaisui(parseInt(this.dataset.year,10)) });
+    wrap.appendChild(b);
+  }
+}
+
+/* =========================================================
+ * \u4E94\u3001\u4E92\u52A8\uFF1A\u4E0A\u9999\uFF08\u771F\u9999\u5165\u7089\u00B7\u71C3\u70E7\u00B7\u6301\u7EED\u5192\u70DF\uFF09
+ * ========================================================= */
+var STICK_POS = [-6, 0, 6, -14, -10, 10, 14, -20, 20, -24, 24, 8]; /* \u9996\u6B21\u4E09\u70B7\u7D27\u675F\u5C45\u4E2D\uFF08\u4E2D\u4F4D\u5934\u9053\u9999\uFF09\uFF0C\u540E\u7EED\u4F9D\u6B21\u6DFB\u9999 */
+var sticks = [];        /* {el, card, born, life, smokeAt} */
+var stickIdx = 0;
+var MAX_STICKS = 12;
+var STICK_BASE_H = 30;  /* px\uFF0C\u77ED\u9999\u633A\u62D4\uFF0C\u4E0D\u906E\u6321\u4E0A\u65B9\u4F9B\u54C1\u6587\u5B57 */
+var STICK_LIFE = 80000; /* \u4E00\u70B7\u9999\u7EA6 80 \u79D2\u70E7\u5C3D */
+
+function lightIncense(btn){
+  var card = btn.closest(".deity-card");
+  var layer = card.querySelector(".sticks-layer");
+  var active = 0;
+  sticks.forEach(function(s){ if(s.card===card) active++ });
+  var added = 0;
+  for(var i=0;i<3 && active+added<MAX_STICKS;i++){
+    var el = document.createElement("div");
+    el.className = "stick";
+    el.innerHTML = '<span class="ember"></span>';
+    var x = STICK_POS[stickIdx % STICK_POS.length];
+    stickIdx++;
+    el.style.left = "calc(50% + "+x+"px)";
+    layer.appendChild(el);
+    sticks.push({el:el, card:card, born:Date.now(), life:STICK_LIFE + Math.random()*20000, smokeAt:Date.now()+500+Math.random()*400, x:x});
+    added++;
+  }
+  return added;
+}
+
+function spawnSmoke(s){
+  var layer = s.card.querySelector(".smoke-layer");
+  var r = s.el.getBoundingClientRect();
+  var lr = layer.getBoundingClientRect();
+  if(r.width===0) return;
+  var puff = document.createElement("div");
+  puff.className = "smoke-puff";
+  var dx = (Math.random()*44-22).toFixed(1);
+  puff.style.setProperty("--dx", dx+"px");
+  puff.style.left = (r.left + r.width/2 - lr.left)+"px";
+  puff.style.top = (r.top - lr.top - 3)+"px";
+  layer.appendChild(puff);
+  setTimeout(function(){ puff.remove() }, 3700);
+}
+
+function incenseTick(){
+  var now = Date.now();
+  sticks = sticks.filter(function(s){
+    if(now - s.born > s.life){ s.el.remove(); return false; }
+    var p = (now - s.born) / s.life;
+    var h = Math.max(6, STICK_BASE_H * (1 - p));
+    s.el.style.height = h + "px";
+    if(now - s.smokeAt > 460 + Math.random()*320){
+      s.smokeAt = now;
+      spawnSmoke(s);
+    }
+    return true;
+  });
+}
+setInterval(incenseTick, 90);
+
+/* =========================================================
+ * \u516D\u3001\u732E\u4F9B\uFF1A\u4F9B\u54C1\u6446\u4E0A\u4F9B\u684C\uFF08SVG \u4F9B\u54C1\u76D8\uFF09
+ * ========================================================= */
+var ICONS = {
+  apple:'<svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true"><ellipse cx="24" cy="35" rx="15" ry="5.5" fill="#4a2c12" stroke="#d8a94e" stroke-width="1.4"/><circle cx="24" cy="32.5" r="8" fill="#c2352f"/><circle cx="21.5" cy="29.5" r="2" fill="#e8b0a8" opacity=".6"/><path d="M24 25.2c0-1.8 1.2-2.8 3-3.2" stroke="#6b3f14" stroke-width="1.3" fill="none"/><path d="M26.8 22.4c.3-1.2 1.6-1.8 2.9-1.4" stroke="#5f8c3f" stroke-width="1.5" fill="none"/></svg>',
+  orange:'<svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true"><ellipse cx="24" cy="35" rx="15" ry="5.5" fill="#4a2c12" stroke="#d8a94e" stroke-width="1.4"/><circle cx="24" cy="33" r="8.5" fill="#e8841f"/><circle cx="21" cy="30" r="2.2" fill="#ffd9a0" opacity=".6"/><path d="M24 25.2c0-2 1.6-3 3.4-3.2" stroke="#5f8c3f" stroke-width="1.4" fill="none"/></svg>',
+  banana:'<svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true"><ellipse cx="24" cy="35" rx="15" ry="5.5" fill="#4a2c12" stroke="#d8a94e" stroke-width="1.4"/><path d="M16 39.5c6-2.5 14-9 17-16.5 1.5-4 .5-7.5-3-8.5-3.4-1-6.4 1.2-8.4 5" fill="none" stroke="#f2c94c" stroke-width="5" stroke-linecap="round"/><path d="M16 39.5c6-2.5 14-9 17-16.5" fill="none" stroke="#c99a1f" stroke-width="1.3"/></svg>',
+  tao:'<svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true"><ellipse cx="24" cy="35" rx="15" ry="5.5" fill="#4a2c12" stroke="#d8a94e" stroke-width="1.4"/><path d="M24 27c-1.5-5-6.5-6.5-9-3.5-1.2 1.4-1.2 3.6 0 5.5 2 3 5.5 6 9 6.5 3.5-.5 7-3.5 9-6.5 1.2-1.9 1.2-4.1 0-5.5-2.5-3-7.5-1.5-9 3.5z" fill="#f2a6b8"/><path d="M24 27l2-3.4" stroke="#7a4a1e" stroke-width="1.2" fill="none"/><path d="M25.5 23.5c2-1 4.4-.5 5.6 1.4" stroke="#5f8c3f" stroke-width="1.4" fill="none"/></svg>',
+  mian:'<svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true"><ellipse cx="24" cy="35" rx="15" ry="5.5" fill="#4a2c12" stroke="#d8a94e" stroke-width="1.4"/><path d="M13 34a11 6 0 0 0 22 0z" fill="#e8e0cc" stroke="#c9a227" stroke-width="1.4"/><path d="M17 31c2-2.4 5 1.6 7 0s5 1.6 7 0" stroke="#f0c877" stroke-width="1.8" fill="none"/></svg>',
+  gao:'<svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true"><ellipse cx="24" cy="35" rx="15" ry="5.5" fill="#4a2c12" stroke="#d8a94e" stroke-width="1.4"/><path d="M15 35h18v-5.5c0-2-1-3.5-2.8-4.2C28.8 21.5 26.5 19.5 24 19.5s-4.8 2-6.2 5.8C16 26 15 27.5 15 29.5z" fill="#e8b45a"/><path d="M19 22.5c1.5-2 4-2.4 5-1" stroke="#fff3d6" stroke-width="1.2" fill="none"/><circle cx="24" cy="26.5" r="1.6" fill="#c2352f"/></svg>',
+  tangyuan:'<svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true"><ellipse cx="24" cy="35" rx="15" ry="5.5" fill="#4a2c12" stroke="#d8a94e" stroke-width="1.4"/><path d="M14 33a10 5.5 0 0 0 20 0z" fill="#e8e0cc" stroke="#c9a227" stroke-width="1.4"/><circle cx="20" cy="30" r="3.4" fill="#fffdf6"/><circle cx="27" cy="31" r="3.2" fill="#fffdf6"/><circle cx="24" cy="26.5" r="2.6" fill="#fffdf6"/></svg>',
+  tang:'<svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true"><ellipse cx="24" cy="35" rx="15" ry="5.5" fill="#4a2c12" stroke="#d8a94e" stroke-width="1.4"/><circle cx="18.5" cy="32" r="4.2" fill="#c2352f"/><path d="M14 29l-3-4M23 29l3-4M14 35l-3 4M23 35l3 4" stroke="#c2352f" stroke-width="1.6"/><circle cx="29.5" cy="32" r="4.2" fill="#e8841f"/><path d="M25 29l-3-4M34 29l3-4M25 35l-3 4M34 35l3 4" stroke="#e8841f" stroke-width="1.6"/></svg>',
+  tea:'<svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true"><ellipse cx="24" cy="35" rx="15" ry="5.5" fill="#4a2c12" stroke="#d8a94e" stroke-width="1.4"/><ellipse cx="24" cy="33.5" rx="9" ry="4" fill="#e8e0cc" stroke="#c9a227" stroke-width="1.4"/><ellipse cx="24" cy="33.5" rx="6" ry="2.6" fill="#8a5a28"/><path d="M18 27.5c-1-2 0-3.5 2-4M23 26.5c-1-2 0-3.5 2-4" stroke="#e8e0cc" stroke-width="1.3" fill="none" opacity=".7"/></svg>',
+  yuanbao:'<svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true"><ellipse cx="24" cy="35" rx="15" ry="5.5" fill="#4a2c12" stroke="#d8a94e" stroke-width="1.4"/><path d="M13 33.5c0-4.5 3.2-6.8 11-6.8s11 2.3 11 6.8c0 2.2-1.2 3.9-3.4 4.5-2.2.6-4.8 1-7.6 1s-5.4-.4-7.6-1c-2.2-.6-3.4-2.3-3.4-4.5z" fill="#f0c877"/><path d="M13 33.5c0-4.5 3.2-6.8 11-6.8s11 2.3 11 6.8" fill="none" stroke="#c9a227" stroke-width="1.2"/><path d="M17 32.5c0-2.6 2.5-4.2 7-4.2s7 1.6 7 4.2" fill="none" stroke="#d9a41f" stroke-width="1.1"/></svg>',
+  jinzhi:'<svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true"><ellipse cx="24" cy="35" rx="15" ry="5.5" fill="#4a2c12" stroke="#d8a94e" stroke-width="1.4"/><rect x="14" y="21" width="20" height="14" rx="1.5" fill="#f0c877" stroke="#c9a227" stroke-width="1.2"/><path d="M17 21v14M24 21v14" stroke="#c9a227" stroke-width="1"/><path d="M20 25h8" stroke="#e8841f" stroke-width="1.2"/></svg>',
+  liuzhai:'<svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true"><ellipse cx="24" cy="35" rx="15" ry="5.5" fill="#4a2c12" stroke="#d8a94e" stroke-width="1.4"/><ellipse cx="24" cy="33.5" rx="12" ry="4.2" fill="#e8e0cc" stroke="#c9a227" stroke-width="1.3"/><path d="M16.5 32c1.5-2.4 3.2-2.4 4.7 0s3.2 2.4 4.7 0 3.2-2.4 4.7 0" stroke="#5f8c3f" stroke-width="1.7" fill="none"/><path d="M19 29.5c1-1.6 2.2-1.6 3.2 0M24.8 29.5c1-1.6 2.2-1.6 3.2 0" stroke="#8a5a28" stroke-width="1.3" fill="none"/></svg>',
+  taisuifu:'<svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true"><ellipse cx="24" cy="35" rx="15" ry="5.5" fill="#4a2c12" stroke="#d8a94e" stroke-width="1.4"/><rect x="16.5" y="19" width="15" height="22" rx="1.5" fill="#f5df9e" stroke="#c9a227" stroke-width="1.2"/><path d="M19.5 23.5h9M19.5 27.5h9M19.5 31.5h6" stroke="#b3202a" stroke-width="1.6"/><rect x="18.5" y="34" width="6" height="3.5" fill="#c2352f" opacity=".85"/></svg>',
+  migao:'<svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true"><ellipse cx="24" cy="35" rx="15" ry="5.5" fill="#4a2c12" stroke="#d8a94e" stroke-width="1.4"/><rect x="15" y="27" width="18" height="9" rx="2" fill="#f5efe0" stroke="#c9a227" stroke-width="1.2"/><circle cx="21" cy="31.5" r="1.3" fill="#c2352f"/><circle cx="27" cy="31.5" r="1.3" fill="#c2352f"/></svg>',
+  candle:'<svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true"><ellipse cx="24" cy="35" rx="15" ry="5.5" fill="#4a2c12" stroke="#d8a94e" stroke-width="1.4"/><rect x="21" y="22" width="6" height="14" rx="2" fill="#d93a45" stroke="#a01c26" stroke-width="1"/><path d="M24 21c-1.4 1.8-2.6 2.8-2.6 4.2a2.6 2.6 0 0 0 5.2 0C26.6 23.8 25.4 22.8 24 21z" fill="#ffd9a0"/></svg>'
+};
+var ICON_NAMES = {
+  apple:"\u82F9\u679C", orange:"\u91D1\u6A58/\u798F\u6A58", banana:"\u9999\u8549", tao:"\u5BFF\u6843", mian:"\u5BFF\u9762",
+  gao:"\u53D1\u7CD5", tangyuan:"\u6C64\u5706", tang:"\u7CD6\u679C", tea:"\u6E05\u8336", yuanbao:"\u5143\u5B9D",
+  jinzhi:"\u91D1\u7EB8", liuzhai:"\u516D\u658B", taisuifu:"\u592A\u5C81\u7B26", migao:"\u7C73\u7CD5", candle:"\u9999\u70DB"
+};
+
+function offerItems(btn){
+  var card = btn.closest(".deity-card");
+  var list = document.getElementById(btn.dataset.offer);
+  if(!list) return;
+  var items = list.querySelectorAll("li");
+  var altarItems = card.querySelector(".altar-items");
+  var existing = altarItems.querySelectorAll(".offering-obj");
+
+  if(existing.length === 0){
+    items.forEach(function(li, idx){
+      setTimeout(function(){
+        var type = li.dataset.icon || "gao";
+        var obj = document.createElement("div");
+        obj.className = "offering-obj";
+        obj.title = ICON_NAMES[type] || type;
+        obj.innerHTML = ICONS[type] || ICONS.gao;
+        altarItems.appendChild(obj);
+        requestAnimationFrame(function(){ requestAnimationFrame(function(){ obj.classList.add("in") }) });
+        li.classList.add("lit");
+      }, idx * 150);
+    });
+  } else {
+    existing.forEach(function(obj, idx){
+      setTimeout(function(){
+        obj.classList.remove("in");
+        void obj.offsetWidth;
+        obj.classList.add("in");
+      }, idx * 90);
+    });
+    items.forEach(function(li){ li.classList.add("lit") });
+  }
+}
+
+/* =========================================================
+ * \u4E03\u3001\u4E92\u52A8\uFF1A\u53E9\u62DC / \u529F\u5FB7
+ * ========================================================= */
+var totalMerit = 0;
+var deityMerit = { "card-fulushou":0, "card-caishen":0, "card-taisui":0, "card-tudi":0 };
+var STORAGE_KEY = "cyber-shrine-merit-v1";
+
+/* \u529F\u5FB7\u6301\u4E45\u5316\uFF1A\u5237\u65B0\u4E0D\u4E22\uFF0C\u6E05\u9664\u7AD9\u70B9\u6570\u636E\u624D\u4F1A\u6E05\u96F6 */
+function loadMerit(){
+  try{
+    var raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return;
+    var d = JSON.parse(raw);
+    if(typeof d.total === "number") totalMerit = d.total;
+    if(d.deity){
+      Object.keys(deityMerit).forEach(function(id){
+        if(typeof d.deity[id] === "number") deityMerit[id] = d.deity[id];
+      });
+    }
+  }catch(e){ /* \u5B58\u50A8\u4E0D\u53EF\u7528\u65F6\u6309\u96F6\u5904\u7406 */ }
+}
+function saveMerit(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify({total:totalMerit, deity:deityMerit})) }catch(e){}
+}
+function renderMerit(){
+  document.getElementById("totalMerit").textContent = totalMerit;
+  Object.keys(deityMerit).forEach(function(id){
+    var card = document.getElementById(id);
+    if(card) card.querySelector(".deity-merit b").textContent = deityMerit[id];
+  });
+}
+var kowtowMsgs = [
+  "\u5FC3\u8BDA\u5219\u7075\uFF0C\u6240\u613F\u7686\u6210",
+  "\u4E00\u62DC\u5E73\u5B89\uFF0C\u4E8C\u62DC\u987A\u9042\uFF0C\u4E09\u62DC\u5982\u610F",
+  "\u795E\u660E\u5728\u4E0A\uFF0C\u89C1\u8BC1\u543E\u5FC3",
+  "\u798F\u6C14\u81EA\u6765\uFF0C\u597D\u8FD0\u5E38\u4F34",
+  "\u613F\u6240\u6C42\u7686\u5982\u613F\uFF0C\u6240\u884C\u7686\u5766\u9014"
+];
+var kowtowIdx = 0;
+
+function addMerit(n){
+  totalMerit += n;
+  document.getElementById("totalMerit").textContent = totalMerit;
+  saveMerit();
+}
+function cardMeritAdd(card, n){
+  deityMerit[card.id] += n;
+  card.querySelector(".deity-merit b").textContent = deityMerit[card.id];
+  addMerit(n);
+}
+
+document.querySelectorAll(".btn-incense").forEach(function(btn){
+  btn.addEventListener("click", function(){
+    var added = lightIncense(btn);
+    var card = btn.closest(".deity-card");
+    var msg = card.querySelector(".kowtow-msg");
+    if(added > 0){
+      msg.textContent = "\u4E09\u70B7\u6E05\u9999\u5DF2\u70B9\u71C3\uFF0C\u9999\u70DF\u8885\u8885\uFF0C\u795E\u660E\u9274\u4E4B";
+      cardMeritAdd(card, 3);
+    } else {
+      msg.textContent = "\u9999\u7089\u5DF2\u6EE1\uFF0C\u7B49\u9999\u70E7\u5B8C\u518D\u7EED\u5427\uFF08\u5FC3\u8BDA\u5219\u7075\uFF09";
+    }
+    msg.classList.remove("show");
+    void msg.offsetWidth;
+    msg.classList.add("show");
+  });
+});
+
+function doKowtow(card, deity){
+  /* \u795E\u660E\u663E\u7075\uFF1A\u795E\u50CF\u91D1\u5149\u4E00\u73B0\uFF0C\u4F9B\u684C\u8F7B\u9707\uFF0C\u70DB\u706B\u95EA\u4EAE */
+  var portrait = card.querySelector(".deity-portrait");
+  portrait.classList.remove("blessed");
+  void portrait.offsetWidth;
+  portrait.classList.add("blessed");
+  var altar = card.querySelector(".altar");
+  if(altar){
+    altar.classList.remove("shake");
+    void altar.offsetWidth;
+    altar.classList.add("shake");
+  }
+  var flames = card.querySelectorAll(".candle .flame");
+  flames.forEach(function(f){
+    f.classList.add("bright");
+    setTimeout(function(){ f.classList.remove("bright") }, 950);
+  });
+  var mat = card.querySelector(".prayer-mat");
+  if(mat){
+    mat.classList.add("pressed");
+    setTimeout(function(){ mat.classList.remove("pressed") }, 360);
+  }
+  var msg = card.querySelector(".kowtow-msg");
+  msg.textContent = "\u5411"+deity+"\u4E09\u53E9\u9996 \u00B7 "+kowtowMsgs[kowtowIdx % kowtowMsgs.length];
+  msg.classList.remove("show");
+  void msg.offsetWidth;
+  msg.classList.add("show");
+  kowtowIdx++;
+  cardMeritAdd(card, 1);
+}
+
+document.querySelectorAll(".btn-kowtow").forEach(function(btn){
+  btn.addEventListener("click", function(){ doKowtow(btn.closest(".deity-card"), btn.dataset.deity) });
+});
+
+document.querySelectorAll(".prayer-mat").forEach(function(mat){
+  mat.addEventListener("click", function(){ doKowtow(mat.closest(".deity-card"), "\u795E\u660E") });
+  mat.addEventListener("keydown", function(e){
+    if(e.key==="Enter" || e.key===" "){
+      e.preventDefault();
+      doKowtow(mat.closest(".deity-card"), "\u795E\u660E");
+    }
+  });
+});
+
+document.querySelectorAll(".btn-offer").forEach(function(btn){
+  btn.addEventListener("click", function(){
+    offerItems(btn);
+    var card = btn.closest(".deity-card");
+    var msg = card.querySelector(".kowtow-msg");
+    msg.textContent = "\u4F9B\u54C1\u5DF2\u6446\u4E0A\u4F9B\u684C\uFF0C\u8BDA\u5FC3\u5DF2\u5230\uFF0C\u795E\u660E\u5DF2\u77E5";
+    msg.classList.remove("show");
+    void msg.offsetWidth;
+    msg.classList.add("show");
+    cardMeritAdd(card, 2);
+  });
+});
+
+/* =========================================================
+ * \u516B\u3001\u521D\u59CB\u5316
+ * ========================================================= */
+loadMerit();
+renderMerit();
+todayText();
+buildYearPicker();
+renderTaisui(currentYear);
+
+/* =========================================================
+ * \u4E5D\u3001\u4E71\u7801\u52A0\u5BC6\uFF1A\u8D5B\u535A\u542F\u52A8\u89E3\u5BC6\u6548\u679C
+ * ========================================================= */
+var GLITCH_CHARS = "\u798F\u7984\u5BFF\u559C\u8D22\u8FD0\u5EB7\u6CF0\u5B89\u548C\u987A\u5409\u7965\u745E\u6CFD\u6DA6\u5FB7\u5584\u4EC1\u4FE1\u793C\u4E49\u667A\u52C7\u8BDA\u5B5D\u608C\u5FE0\u6055\u8C26\u606D\u52E4\u4FED\u60E0\u654F\u806A\u6167\u660E\u8FBE\u8363\u534E\u5BCC\u8D35\u91D1\u7389\u6EE1\u5802\u53CC\u5168";
+function glitchDecrypt(el, duration, delay){
+  if(!el) return;
+  if(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if(el.children.length > 0) return; /* \u53EA\u5904\u7406\u7EAF\u6587\u672C\u6807\u9898\uFF0C\u4FDD\u7559\u5E26\u5B50\u6807\u7B7E\u7684\u7ED3\u6784 */
+  setTimeout(function(){
+    var text = el.textContent;
+    var start = null;
+    function frame(t){
+      if(!start) start = t;
+      var p = Math.min(1, (t - start) / duration);
+      var shown = Math.floor(p * text.length);
+      var out = "";
+      for(var i=0;i<text.length;i++){
+        var ch = text[i];
+        if(i < shown || ch === " " || ch === "\u00B7" || ch === "\u3000"){
+          out += ch;
+        } else {
+          out += GLITCH_CHARS[Math.floor(Math.random()*GLITCH_CHARS.length)];
+        }
+      }
+      el.textContent = out;
+      if(p < 1) requestAnimationFrame(frame);
+      else el.textContent = text;
+    }
+    requestAnimationFrame(frame);
+  }, delay || 0);
+}
+
+/* \u4F9D\u6B21\u89E3\u5BC6\uFF1A\u6807\u9898 \u2192 \u526F\u6807\u9898 \u2192 \u7F72\u540D \u2192 \u56DB\u795E\u540D \u2192 \u987B\u77E5\u6807\u9898 */
+glitchDecrypt(document.querySelector(".masthead h1"), 1100, 250);
+glitchDecrypt(document.querySelector(".masthead .subtitle"), 750, 650);
+glitchDecrypt(document.querySelector(".masthead .maker"), 600, 950);
+document.querySelectorAll(".deity-main h3").forEach(function(el, i){
+  glitchDecrypt(el, 550, 1200 + i * 150);
+});
+glitchDecrypt(document.querySelector(".guide-title"), 700, 1800);
+</script>
+</body>
+</html>
