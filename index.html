@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+&#xFEFF;<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -387,10 +387,10 @@
     box-shadow:inset 0 1px 3px rgba(0,0,0,.8);
   }
   .burner-ear{
-    position:absolute;top:30px;width:18px;height:23px;
+    position:absolute;top:44px;width:16px;height:20px;
     background:linear-gradient(180deg,#d8a94e,#8a5a28);
     border:1px solid rgba(255,225,160,.4);
-    border-radius:6px 6px 10px 10px;
+    border-radius:6px 6px 9px 9px;
     box-shadow:0 3px 6px rgba(0,0,0,.35);
   }
   .burner-ear::after{ /* &#x8033;&#x5B54; */
@@ -493,17 +493,22 @@
     margin-left:auto;font-size:12.5px;color:var(--ink-faint);
   }
   .deity-merit b{color:var(--gold-bright);font-family:"Noto Serif SC",serif;font-size:15px}
-  .kowtow-msg{
-    display:none;
-    position:absolute;left:14px;right:14px;bottom:calc(100% + 10px);
-    padding:9px 14px;border-radius:8px;
-    background:rgba(240,200,119,.1);
-    border:1px solid rgba(240,200,119,.35);
+  /* &#x9875;&#x9762;&#x5E95;&#x90E8;&#x60AC;&#x6D6E;&#x63D0;&#x793A;&#xFF08;&#x4E0A;&#x9999;/&#x53E9;&#x62DC;&#x53CD;&#x9988;&#xFF0C;&#x4E0D;&#x5360;&#x5E03;&#x5C40;&#x3001;&#x4E0D;&#x906E;&#x6321;&#x5185;&#x5BB9;&#xFF09; */
+  .toast{
+    position:fixed;left:50%;bottom:28px;transform:translateX(-50%);
+    max-width:86vw;padding:10px 18px;border-radius:999px;
+    background:rgba(22,11,6,.94);
+    border:1px solid rgba(240,200,119,.4);
     color:var(--gold-bright);font-size:13px;letter-spacing:.08em;text-align:center;
-    box-shadow:0 6px 16px rgba(0,0,0,.35);
-    z-index:7;
+    box-shadow:0 8px 24px rgba(0,0,0,.5);
+    display:none;z-index:60;
+    pointer-events:none;
   }
-  .kowtow-msg.show{display:block;animation:fadeUp .5s ease}
+  .toast.show{display:block;animation:toastUp .35s ease}
+  @keyframes toastUp{
+    from{opacity:0;transform:translateX(-50%) translateY(10px)}
+    to{opacity:1;transform:translateX(-50%) translateY(0)}
+  }
 
   /* &#x8885;&#x8885;&#x9999;&#x70DF; */
   .smoke-puff{
@@ -808,7 +813,6 @@
           <button class="btn btn-kowtow" data-deity="&#x798F;&#x7984;&#x5BFF;&#x4E09;&#x661F;">&#x53E9;&#x62DC;&#x7948;&#x798F;</button>
           <button class="btn btn-offer" data-offer="offerings-fulushou">&#x732E;&#x4F9B;</button>
           <span class="deity-merit">&#x6B64;&#x9F9B;&#x529F;&#x5FB7; <b>0</b></span>
-          <p class="kowtow-msg"></p>
         </div>
       </div>
 
@@ -866,7 +870,6 @@
             <button class="btn btn-kowtow" data-deity="&#x8D22;&#x795E;">&#x53E9;&#x62DC;&#x7948;&#x798F;</button>
             <button class="btn btn-offer" data-offer="offerings-caishen">&#x732E;&#x4F9B;</button>
             <span class="deity-merit">&#x6B64;&#x9F9B;&#x529F;&#x5FB7; <b>0</b></span>
-            <p class="kowtow-msg"></p>
           </div>
         </div>
 
@@ -920,7 +923,6 @@
             <button class="btn btn-kowtow" data-deity="&#x592A;&#x5C81;&#x661F;&#x541B;">&#x53E9;&#x62DC;&#x7948;&#x798F;</button>
             <button class="btn btn-offer" data-offer="offerings-taisui">&#x732E;&#x4F9B;</button>
             <span class="deity-merit">&#x6B64;&#x9F9B;&#x529F;&#x5FB7; <b>0</b></span>
-            <p class="kowtow-msg"></p>
           </div>
         </div>
       </div>
@@ -976,7 +978,6 @@
           <button class="btn btn-kowtow" data-deity="&#x571F;&#x5730;&#x795E;">&#x53E9;&#x62DC;&#x7948;&#x798F;</button>
           <button class="btn btn-offer" data-offer="offerings-tudi">&#x732E;&#x4F9B;</button>
           <span class="deity-merit">&#x6B64;&#x9F9B;&#x529F;&#x5FB7; <b>0</b></span>
-          <p class="kowtow-msg"></p>
         </div>
       </div>
 
@@ -1431,7 +1432,7 @@ document.querySelectorAll(".btn-incense").forEach(function(btn){
   btn.addEventListener("click", function(){
     var added = lightIncense(btn);
     var card = btn.closest(".deity-card");
-    var msg = card.querySelector(".kowtow-msg");
+    var msg = document.getElementById("globalToast");
     if(added > 0){
       msg.textContent = "\u4E09\u70B7\u6E05\u9999\u5DF2\u70B9\u71C3\uFF0C\u9999\u70DF\u8885\u8885\uFF0C\u795E\u660E\u9274\u4E4B";
       cardMeritAdd(card, 3);
@@ -1466,7 +1467,7 @@ function doKowtow(card, deity){
     mat.classList.add("pressed");
     setTimeout(function(){ mat.classList.remove("pressed") }, 360);
   }
-  var msg = card.querySelector(".kowtow-msg");
+  var msg = document.getElementById("globalToast");
   msg.textContent = "\u5411"+deity+"\u4E09\u53E9\u9996 \u00B7 "+kowtowMsgs[kowtowIdx % kowtowMsgs.length];
   msg.classList.remove("show");
   void msg.offsetWidth;
@@ -1493,7 +1494,7 @@ document.querySelectorAll(".btn-offer").forEach(function(btn){
   btn.addEventListener("click", function(){
     offerItems(btn);
     var card = btn.closest(".deity-card");
-    var msg = card.querySelector(".kowtow-msg");
+    var msg = document.getElementById("globalToast");
     msg.textContent = "\u4F9B\u54C1\u5DF2\u6446\u4E0A\u4F9B\u684C\uFF0C\u8BDA\u5FC3\u5DF2\u5230\uFF0C\u795E\u660E\u5DF2\u77E5";
     msg.classList.remove("show");
     void msg.offsetWidth;
@@ -1511,5 +1512,6 @@ todayText();
 buildYearPicker();
 renderTaisui(currentYear);
 </script>
+<div class="toast" id="globalToast"></div>
 </body>
 </html>
