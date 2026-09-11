@@ -664,7 +664,7 @@ function applyStrategy(s){
 
 /* ===== 筛选逻辑 ===== */
 function readFilters(){
-  const num = (id)=>{ const v = $(id).value.trim(); return v==="" ? null : parseFloat(v); };
+  const num = (id)=>{ const v = $("#"+id).value.trim(); return v==="" ? null : parseFloat(v); };
   return {
     peMin:num("peMin"), peMax:num("peMax"),
     pbMin:num("pbMin"), pbMax:num("pbMax"),
