@@ -266,7 +266,7 @@
   /* ===== &#x4F9B;&#x684C;&#xFF08;&#x6848;&#x53F0;&#xFF09; ===== */
   .altar{
     position:relative;z-index:3;
-    margin:20px 20px 0;
+    margin:24px 20px 0;
   }
   .altar-top{
     position:relative;height:66px;
@@ -417,11 +417,11 @@
     z-index:1;
   }
   .sticks-layer{
-    position:absolute;bottom:68px;left:0;right:0;height:44px;pointer-events:none;z-index:2;
+    position:absolute;bottom:58px;left:0;right:0;height:30px;pointer-events:none;z-index:2;
   }
   .stick{
     position:absolute;bottom:0;
-    width:3px;height:56px;border-radius:2px;
+    width:3px;height:22px;border-radius:2px;
     background:linear-gradient(180deg,#e0a860,#b07a3a 72%,#8a5a28);
     opacity:0;
     animation:stickIn .55s ease forwards;
@@ -689,7 +689,7 @@
     .offering-list li{padding:5px 10px}
     .offering-list .name{font-size:12.5px}
     .offering-list .mean{font-size:10px}
-    .altar{margin:18px 14px 0}
+    .altar{margin:24px 14px 0}
     .offerings-row{margin:4px 14px 0;padding-bottom:20px}
     .candle.c-l{left:12%}
     .candle.c-r{right:12%}
@@ -1255,11 +1255,11 @@ function buildYearPicker(){
 /* =========================================================
  * \u4E94\u3001\u4E92\u52A8\uFF1A\u4E0A\u9999\uFF08\u771F\u9999\u5165\u7089\u00B7\u71C3\u70E7\u00B7\u6301\u7EED\u5192\u70DF\uFF09
  * ========================================================= */
-var STICK_POS = [-6, 0, 6, -14, -10, 10, 14, -20, 20, -24, 24, 8]; /* \u9996\u6B21\u4E09\u70B7\u7D27\u675F\u5C45\u4E2D\uFF08\u4E2D\u4F4D\u5934\u9053\u9999\uFF09\uFF0C\u540E\u7EED\u4F9D\u6B21\u6DFB\u9999 */
+var STICK_POS = [-3, 0, 3, -14, -10, 10, 14, -20, 20, -24, 24, 8]; /* \u9996\u6B21\u4E09\u70B7\u7D27\u675F\u5C45\u4E2D\uFF08-3/0/+3 \u8FDE\u6210\u4E00\u4F53\uFF0C\u4E2D\u4F4D\u5934\u9053\u9999\uFF09\uFF0C\u540E\u7EED\u4F9D\u6B21\u6DFB\u9999 */
 var sticks = [];        /* {el, card, born, life, smokeAt} */
 var stickIdx = 0;
 var MAX_STICKS = 12;
-var STICK_BASE_H = 30;  /* px\uFF0C\u77ED\u9999\u633A\u62D4\uFF0C\u4E0D\u906E\u6321\u4E0A\u65B9\u4F9B\u54C1\u6587\u5B57 */
+var STICK_BASE_H = 22;  /* px\uFF0C\u77ED\u9999\u633A\u62D4\uFF0C\u5B8C\u5168\u4E0D\u906E\u6321\u4E0A\u65B9\u4F9B\u54C1\u6587\u5B57 */
 var STICK_LIFE = 80000; /* \u4E00\u70B7\u9999\u7EA6 80 \u79D2\u70E7\u5C3D */
 
 function lightIncense(btn){
