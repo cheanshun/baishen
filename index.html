@@ -674,11 +674,21 @@
   .fade-in{animation:fadeUp .6s ease both}
 
   @media (max-width:640px){
+    body{overflow-x:hidden}
+    .masthead{padding:40px 14px 24px}
+    .today-strip{padding:10px 14px}
+    .shrine{padding:26px 14px 8px}
     .deity-inner{padding:16px 14px 12px}
-    .deity-portrait{flex-basis:110px}
-    .deity-portrait img{width:110px;height:165px}
-    .deity-main{padding-left:16px;min-width:0}
-    .deity-main h3{font-size:20px}
+    .deity-portrait{flex-basis:96px}
+    .deity-portrait img{width:96px;height:144px}
+    .deity-nameplate{font-size:11px;padding:3px 6px;letter-spacing:.04em}
+    .deity-main{flex:1 1 150px;min-width:0;padding-left:14px}
+    .deity-main h3{font-size:18px}
+    .deity-duty{font-size:12px}
+    .deity-pos{font-size:11.5px;line-height:1.6}
+    .offering-list li{padding:5px 10px}
+    .offering-list .name{font-size:12.5px}
+    .offering-list .mean{font-size:10px}
     .altar{margin:18px 14px 0}
     .offerings-row{margin:4px 14px 0;padding-bottom:20px}
     .candle.c-l{left:12%}
@@ -691,10 +701,14 @@
     .burner-ear.r{right:14px}
     .burner-leg.l{left:26px}
     .burner-leg.r{right:26px}
+    .prayer-mat{width:116px;height:40px;margin:6px auto -8px}
     .ritual-actions{padding:12px 14px 6px}
     .merit-bar{padding:8px 14px}
     .shrine-frame{padding:20px 12px 22px}
     .shrine-frame::before,.shrine-frame::after{display:none}
+    .taisui-current{gap:14px}
+    .guide-card{padding:20px 16px}
+    .guide-title{letter-spacing:.2em;text-indent:.2em}
   }
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
