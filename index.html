@@ -188,10 +188,11 @@
     position:absolute;inset:0;z-index:30;pointer-events:none;
   }
   .deity-inner{
-    display:flex;flex-wrap:wrap;gap:0;padding:20px 20px 14px;
+    display:flex;flex-direction:column;align-items:center;text-align:center;
+    padding:22px 20px 14px;
   }
   .deity-portrait{
-    flex:0 0 150px;position:relative;z-index:2;
+    flex:0 0 auto;position:relative;z-index:2;
   }
   .deity-portrait .frame{
     position:relative;border-radius:10px;overflow:hidden;
@@ -204,7 +205,7 @@
     background:linear-gradient(180deg,transparent 62%,rgba(22,11,6,.55));
     pointer-events:none;
   }
-  .deity-portrait img{width:150px;height:225px;object-fit:cover}
+  .deity-portrait img{width:170px;height:255px;object-fit:cover}
   .deity-nameplate{
     position:absolute;left:50%;bottom:8px;transform:translateX(-50%);
     white-space:nowrap;
@@ -215,13 +216,14 @@
     font-size:13px;letter-spacing:.16em;text-indent:.16em;
     z-index:2;
   }
-  .deity-main{flex:1 1 260px;min-width:240px;padding:2px 0 0 22px;position:relative;z-index:2}
+  .deity-main{width:100%;padding:14px 0 0;position:relative;z-index:2}
   .deity-main h3{
-    font-size:24px;font-weight:700;color:var(--gold-bright);letter-spacing:.1em;
+    font-size:26px;font-weight:700;color:var(--gold-bright);letter-spacing:.14em;text-indent:.14em;
   }
-  .deity-duty{margin-top:2px;font-size:13px;color:var(--ink-dim);letter-spacing:.06em}
+  .deity-duty{margin-top:2px;font-size:13px;color:var(--ink-dim);letter-spacing:.08em}
   .deity-pos{
-    margin-top:8px;font-size:12.5px;color:var(--ink-faint);
+    margin:10px auto 0;max-width:560px;text-align:left;
+    font-size:12.5px;color:var(--ink-faint);
     padding-left:12px;border-left:2px solid var(--cinnabar);
     line-height:1.7;
   }
@@ -237,7 +239,7 @@
   /* &#x4F9B;&#x54C1;&#x6E05;&#x5355;&#xFF08;&#x795E;&#x50CF;&#x53F3;&#x4FA7;&#x4FE1;&#x606F;&#x533A;&#x5185;&#x2014;&#x2014;&#x798F;&#x7984;&#x5BFF;&#x3001;&#x571F;&#x5730;&#x795E;&#x4F7F;&#x7528;&#xFF09; */
   .offerings{margin-top:12px}
   .offerings-head{
-    display:flex;align-items:center;gap:8px;
+    display:flex;align-items:center;justify-content:center;gap:8px;
     font-size:13px;color:var(--gold);letter-spacing:.22em;text-indent:.22em;
   }
   .offerings-head::before{
@@ -245,7 +247,7 @@
     background:var(--cinnabar);box-shadow:0 0 8px rgba(179,32,42,.7);
   }
   .offering-list{
-    display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin-top:8px;
+    display:flex;flex-wrap:wrap;justify-content:center;gap:8px;list-style:none;margin-top:8px;
   }
   .offering-list li{
     display:flex;flex-direction:column;gap:1px;
@@ -679,11 +681,11 @@
     .today-strip{padding:10px 14px}
     .shrine{padding:26px 14px 8px}
     .deity-inner{padding:16px 14px 12px}
-    .deity-portrait{flex-basis:96px}
-    .deity-portrait img{width:96px;height:144px}
+    .deity-portrait{flex-basis:auto}
+    .deity-portrait img{width:104px;height:156px}
     .deity-nameplate{font-size:11px;padding:3px 6px;letter-spacing:.04em}
-    .deity-main{flex:1 1 150px;min-width:0;padding-left:14px}
-    .deity-main h3{font-size:18px}
+    .deity-main{width:100%;flex:1 1 auto;min-width:0;padding:12px 0 0}
+    .deity-main h3{font-size:20px}
     .deity-duty{font-size:12px}
     .deity-pos{font-size:11.5px;line-height:1.6}
     .offering-list li{padding:5px 10px}
