@@ -1447,18 +1447,35 @@ document.querySelectorAll(".btn-incense").forEach(function(btn){
   btn.addEventListener("click", function(){
     var added = lightIncense(btn);
     var card = btn.closest(".deity-card");
-    var msg = document.getElementById("globalToast");
     if(added > 0){
-      msg.textContent = "\u4E09\u70B7\u6E05\u9999\u5DF2\u70B9\u71C3\uFF0C\u9999\u70DF\u8885\u8885\uFF0C\u795E\u660E\u9274\u4E4B";
+      showToast("\u4E09\u70B7\u6E05\u9999\u5DF2\u70B9\u71C3\uFF0C\u9999\u70DF\u8885\u8885\uFF0C\u795E\u660E\u9274\u4E4B", card);
       cardMeritAdd(card, 3);
     } else {
-      msg.textContent = "\u9999\u7089\u5DF2\u6EE1\uFF0C\u7B49\u9999\u70E7\u5B8C\u518D\u7EED\u5427\uFF08\u5FC3\u8BDA\u5219\u7075\uFF09";
+      showToast("\u9999\u7089\u5DF2\u6EE1\uFF0C\u7B49\u9999\u70E7\u5B8C\u518D\u7EED\u5427\uFF08\u5FC3\u8BDA\u5219\u7075\uFF09", card);
     }
-    msg.classList.remove("show");
-    void msg.offsetWidth;
-    msg.classList.add("show");
   });
 });
+
+function showToast(text, card){
+  var msg = document.getElementById("globalToast");
+  msg.textContent = text;
+  var bottom = 28;
+  if(card){
+    var bar = card.querySelector(".ritual-actions");
+    if(bar){
+      var r = bar.getBoundingClientRect();
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      var est = 48;
+      if(r.top < vh - bottom - est){
+        bottom = vh - r.top + 10;
+      }
+    }
+  }
+  msg.style.bottom = bottom + "px";
+  msg.classList.remove("show");
+  void msg.offsetWidth;
+  msg.classList.add("show");
+}
 
 function doKowtow(card, deity){
   /* \u795E\u660E\u663E\u7075\uFF1A\u795E\u50CF\u91D1\u5149\u4E00\u73B0\uFF0C\u4F9B\u684C\u8F7B\u9707\uFF0C\u70DB\u706B\u95EA\u4EAE */
@@ -1482,11 +1499,7 @@ function doKowtow(card, deity){
     mat.classList.add("pressed");
     setTimeout(function(){ mat.classList.remove("pressed") }, 360);
   }
-  var msg = document.getElementById("globalToast");
-  msg.textContent = "\u5411"+deity+"\u4E09\u53E9\u9996 \u00B7 "+kowtowMsgs[kowtowIdx % kowtowMsgs.length];
-  msg.classList.remove("show");
-  void msg.offsetWidth;
-  msg.classList.add("show");
+  showToast("\u5411"+deity+"\u4E09\u53E9\u9996 \u00B7 "+kowtowMsgs[kowtowIdx % kowtowMsgs.length], card);
   kowtowIdx++;
   cardMeritAdd(card, 1);
 }
@@ -1509,11 +1522,7 @@ document.querySelectorAll(".btn-offer").forEach(function(btn){
   btn.addEventListener("click", function(){
     offerItems(btn);
     var card = btn.closest(".deity-card");
-    var msg = document.getElementById("globalToast");
-    msg.textContent = "\u4F9B\u54C1\u5DF2\u6446\u4E0A\u4F9B\u684C\uFF0C\u8BDA\u5FC3\u5DF2\u5230\uFF0C\u795E\u660E\u5DF2\u77E5";
-    msg.classList.remove("show");
-    void msg.offsetWidth;
-    msg.classList.add("show");
+    showToast("\u4F9B\u54C1\u5DF2\u6446\u4E0A\u4F9B\u684C\uFF0C\u8BDA\u5FC3\u5DF2\u5230\uFF0C\u795E\u660E\u5DF2\u77E5", card);
     cardMeritAdd(card, 2);
   });
 });
