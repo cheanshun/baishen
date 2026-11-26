@@ -494,20 +494,20 @@
     margin-left:auto;font-size:12.5px;color:var(--ink-faint);
   }
   .deity-merit b{color:var(--gold-bright);font-family:"Noto Serif SC",serif;font-size:15px}
-  /* &#x9875;&#x9762;&#x5E95;&#x90E8;&#x60AC;&#x6D6E;&#x63D0;&#x793A;&#xFF08;&#x4E0A;&#x9999;/&#x53E9;&#x62DC;&#x53CD;&#x9988;&#xFF0C;&#x4E0D;&#x5360;&#x5E03;&#x5C40;&#x3001;&#x4E0D;&#x906E;&#x6321;&#x5185;&#x5BB9;&#xFF09; */
+  /* &#x9875;&#x9762;&#x9876;&#x90E8;&#x60AC;&#x6D6E;&#x63D0;&#x793A;&#xFF08;&#x4E0A;&#x9999;/&#x732E;&#x4F9B;/&#x53E9;&#x62DC;&#x53CD;&#x9988;&#xFF0C;&#x56FA;&#x5B9A;&#x5728;&#x6700;&#x4E0A;&#x7AEF;&#xFF0C;&#x7EDD;&#x4E0D;&#x906E;&#x6321;&#x4EFB;&#x4F55;&#x6309;&#x94AE;&#xFF09; */
   .toast{
-    position:fixed;left:50%;bottom:28px;transform:translateX(-50%);
-    max-width:86vw;padding:10px 18px;border-radius:999px;
-    background:rgba(22,11,6,.94);
-    border:1px solid rgba(240,200,119,.4);
+    position:fixed;left:50%;top:16px;transform:translateX(-50%);
+    max-width:88vw;padding:10px 18px;border-radius:999px;
+    background:rgba(22,11,6,.95);
+    border:1px solid rgba(240,200,119,.45);
     color:var(--gold-bright);font-size:13px;letter-spacing:.08em;text-align:center;
-    box-shadow:0 8px 24px rgba(0,0,0,.5);
-    display:none;z-index:60;
+    box-shadow:0 8px 24px rgba(0,0,0,.55);
+    display:none;z-index:80;
     pointer-events:none;
   }
-  .toast.show{display:block;animation:toastUp .35s ease}
-  @keyframes toastUp{
-    from{opacity:0;transform:translateX(-50%) translateY(10px)}
+  .toast.show{display:block;animation:toastDown .35s ease}
+  @keyframes toastDown{
+    from{opacity:0;transform:translateX(-50%) translateY(-12px)}
     to{opacity:1;transform:translateX(-50%) translateY(0)}
   }
 
@@ -1456,25 +1456,15 @@ document.querySelectorAll(".btn-incense").forEach(function(btn){
   });
 });
 
-function showToast(text, card){
+var toastTimer = null;
+function showToast(text){
   var msg = document.getElementById("globalToast");
   msg.textContent = text;
-  var bottom = 28;
-  if(card){
-    var bar = card.querySelector(".ritual-actions");
-    if(bar){
-      var r = bar.getBoundingClientRect();
-      var vh = window.innerHeight || document.documentElement.clientHeight;
-      var est = 48;
-      if(r.top < vh - bottom - est){
-        bottom = vh - r.top + 10;
-      }
-    }
-  }
-  msg.style.bottom = bottom + "px";
   msg.classList.remove("show");
   void msg.offsetWidth;
   msg.classList.add("show");
+  if(toastTimer){ clearTimeout(toastTimer); }
+  toastTimer = setTimeout(function(){ msg.classList.remove("show"); }, 3200);
 }
 
 function doKowtow(card, deity){
